@@ -26,9 +26,9 @@ Ppt link : https://docs.google.com/presentation/d/15PZT7NSlSMeFujkZKU1RieKTWBCMY
 For testing:
 
 1. Deploy Contracts on Ganache
-  a. Connect Ganache to Remix IDE.
-  b. Deploy both the contracts in Contracts folder after compiling.
-  c. Copy the contract addressess and assign them to contract and contract1 variables in user/views.py. (Line 31 and 40).
+-  Connect Ganache to Remix IDE.
+-  Deploy both the contracts in Contracts folder after compiling.
+-  Copy the contract addressess and assign them to contract and contract1 variables in user/views.py. (Line 31 and 40).
   
 2. Change Path of SVG files (Present in "user/views.py" at line number --) to Systems directory(Ex: "C://Your path/FoodSupp/user/static/Images/QRfiles/").
 
