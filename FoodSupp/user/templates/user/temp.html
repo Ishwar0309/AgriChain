@@ -1,0 +1,40 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+   jQuery(function() {
+  jQuery('#showall').click(function() {
+    jQuery('.targetDiv').show();
+  });
+  jQuery('.showSingle').click(function() {
+    jQuery('.targetDiv').hide();
+    jQuery('#div' + $(this).attr('target')).show();
+  });
+});
+</script>
+
+<div class="buttons">
+  <a id="showall">All</a>
+  <a class="showSingle" target="1">Div 1</a>
+  <a class="showSingle" target="2">Div 2</a>
+  <a class="showSingle" target="3">Div 3</a>
+  <a class="showSingle" target="4">Div 4</a>
+</div>
+
+<div id="div1" class="targetDiv">
+    <button type="btn btn-primary">One</button>
+    <button type="btn btn-primary">Two</button>
+    <button type="btn btn-primary">Three</button>
+
+
+</div>
+<div id="div2" class="targetDiv">Lorum Ipsum2</div>
+<div id="div3" class="targetDiv">Lorum Ipsum3</div>
+<div id="div4" class="targetDiv">Lorum Ipsum4</div>
+
+  <br><br><br><br>
+
+
+{% endblock content %}

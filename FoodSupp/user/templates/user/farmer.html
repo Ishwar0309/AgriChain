@@ -1,0 +1,413 @@
+
+
+
+
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+  <br><br><br><br>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div class="row" style="">
+
+    <div class="col-md-3" style="background: rgba(255, 255, 255, 0.4)">
+        <h2 style="border-bottom:solid;text-align:center">Functions</h2><br><br>
+      <h3><a id="1" class="show" style="margin-left:20px;cursor: pointer;"> Broadcast </a><br><br>
+      <a id="2" class="show" style="margin-left:20px;cursor: pointer;"> Farmer Broadcasts </a><br><br>
+      <a id="3" class="show" style="margin-left:20px;cursor: pointer;"> Processor Requests </a><br><br>
+      <a id="5" class="show" style="margin-left:20px;cursor: pointer;"> Transactions </a><br><br>
+      <a id="4" class="show" style="margin-left:20px;cursor: pointer;"> Lot Status </a><br><br>
+          <a id="6" class="show" style="margin-left:20px;cursor: pointer;"> Micro Finance</a><br><br>
+<!--      <a id="7" class="show" style="margin-left:20px;cursor: pointer;"> Nearby Warehouse </a><br><br>-->
+          <a href="{% url 'farmer-map' %}" style="margin-left:20px;cursor: pointer; color:black"> New Page Warehouse </a><br><br>
+      <a href="{% url 'farmer-info' %}" style="margin-left:20px;cursor: pointer ;color:black"> Learn Tech</a><br><br>
+      <a id="8" class="show" style="margin-left:20px;cursor: pointer;">Your Yield Broadcasts</a><br><br>
+      <a id="9" class="show" style="margin-left:20px;cursor: pointer;">Investor Deals</a><br><br>
+      <a id="10" class="show" style="margin-left:20px;cursor: pointer;">Accepted Deals</a><br><br></h3>
+      <!--<a id="6" class="show" style="margin-left:20px;cursor: pointer;"> Micro Finance </a></h3>-->
+
+    </div>
+        <div class="col-md-7" style="text-align: center;height:700px;width:90%;margin-left:auto;margin-right:auto;background: rgba(255, 255, 255, 0.4);">
+            <div class="content-wrapper"  style="text-align: center">
+
+
+
+            <div id="item-1" style="margin-top: 50px;">
+              <div class="row">
+                <h4 align="center">Broadcast your Crop Details!</h4>
+              </div>
+              <br>
+              <form action="{% url 'farmer' %}" method="POST" id="form5" name="form">
+                {% csrf_token %}
+              <!--<p><input type="text" placeholder="username"/></p>-->
+              <!--<p><input type="password" placeholder="password" /></p>-->
+              <!--<p><input type="submit" value="Sign in" /></p>-->
+                  <input type="text" readonly name = "farmerName" placeholder="Farmer Name:  {{ farmerName}}" style="margin-top: 10px; border-radius: 5px; width:375px"><br><br>
+                  <input type="text" name = "cropName" placeholder="Crop Name" style="margin-top: 10px;border-radius: 5px; width:375px"/><br><br>
+                  <input type="text" name = "quantity" placeholder="Quantity" style="margin-top: 10px; border-radius: 5px; width:375px"/><br><br>
+                  <input type="text" name = "expectedPrice" placeholder="Expected Price" style="margin-top: 10px;border-radius: 5px; width:375px"/><br><br>
+                  <input type="hidden" id="lat1" name="latitude" value="123">
+                  <input type="hidden" id="lon1" name ="longitude" value="34">
+                  <button type="submit" class="btn btn-primary" name="broadcast" style="margin-top: 10px;border-radius: 5px;width:200px">Submit Details!</button>
+              </form>
+            </div>
+            <div class="container" id="item-2" style="text-align: center;margin-top: 50px" >
+              <div class="row">
+                <h4 align="center">Your Broadcasts.</h4>
+              </div>
+              <br>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+                {% for dat in data %}
+                  <div class="col-md-4" style="margin-top: 10px">
+                    <div class="card " >
+                      <div class="card-block" >
+                        <h5><p class="card-text"><u>Crop Name</u> : {{dat.cropName}}</p>
+                        <p class="card-text"><u>Quantity</u> : {{dat.quantity}}</p>
+                        <p class="card-text"><u>Expected Price</u> : {{dat.expectedPrice}}Rs</p></h5>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+
+            <div class="container" id="item-3" style="text-align: center; margin-top: 50px">
+              <div class="row">
+                <h4 align="center">Your Processor Requests</h4>
+              </div>
+              <br>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue">
+                {% for dat in results %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                      <div class="card  ">
+                          <!--<p>Hey this is Request no 1</p>-->
+                          <form action="{% url 'farmer' %}" method="POST">
+                              {% csrf_token %}
+                              <div class="card-block">
+                                  <h6><p class="card-text">Crop Name : {{dat.cropName}}</p>
+                                  <p class="card-text">Processor Name : {{dat.processorName}}</p>
+                                  <p class="card-text">Requested Quantity : {{dat.quantityRequested}}</p>
+                                  <p class="card-text">Quoted Price : {{dat.quotedPrice}}</p></h6>
+
+                                  <input type="hidden" name="cropName" value="{{dat.cropName}}">
+                                  <input type="hidden" name="farmerKey" value="{{dat.farmerKey}}">
+                                  <input type="hidden" name="farmerName" value="{{farmerName}}">
+                                  <input type="hidden" name="quantity" value="{{dat.quantity}}">
+                                  <input type="hidden" name="expectedPrice" value="{{dat.expectedPrice}}">
+                                  <input type="hidden" name="processorKey" value="{{dat.processorKey}}">
+                                  <input type="hidden" name="selfKey" value="{{dat.selfKey}}">
+                                  <button type="submit" name="insurance" value="insurance" class="btn btn-warning" >Send To Insure</button>
+                                  <button type="submit" name="reject" value="reject" class="btn btn-warning" >Reject</button>
+                              </div>
+                          </form>
+                      </div>
+                    </div>
+                {% endfor %}
+              </div>
+            </div>
+
+
+
+                <div id="item-4">
+                  Lot Status
+                     <style>
+            ol.progtrckr {
+            margin: 0;
+            padding: 0;
+            list-style-type none;
+        }
+
+        ol.progtrckr li {
+            display: inline-block;
+            text-align: center;
+            line-height: 3.5em;
+        }
+
+        ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+        ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+        ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+        ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+        ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+        ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+        ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+        ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+        ol.progtrckr li.progtrckr-done {
+            color: black;
+            border-bottom: 4px solid yellowgreen;
+        }
+        ol.progtrckr li.progtrckr-todo {
+            color: red;
+            border-bottom: 4px solid silver;
+        }
+
+        ol.progtrckr li:after {
+            content: "\00a0\00a0";
+        }
+        ol.progtrckr li:before {
+            position: relative;
+            bottom: -2.5em;
+            float: left;
+            left: 50%;
+            line-height: 1em;
+        }
+        ol.progtrckr li.progtrckr-done:before {
+            content: "\2713";
+            color: white;
+            background-color: yellowgreen;
+            height: 2.2em;
+            width: 2.2em;
+            line-height: 2.2em;
+            border: none;
+            border-radius: 2.2em;
+        }
+        ol.progtrckr li.progtrckr-todo:before {
+            content: "\039F";
+            color: silver;
+            background-color: white;
+            font-size: 2.2em;
+            bottom: -1.2em;
+        }
+
+
+        </style>
+            <script src="{% static 'javascripts/user.js' %}"></script>
+        <form>
+          <script>
+            var sel = document.getElementById('lotIdSelect');
+          </script>
+
+          <select id='idSelect' name="idSelect">
+            <option value="" selected="selected" hidden>Yields</option>
+          </select>
+              <input type="hidden" name="lotIdSelected" id = "lotIdSelected">
+              <input type="hidden" name="idSelected" id="idSelected">
+          <select id='lotIdSelect' name="lotIdSelect">
+            <option value="" selected="selected" hidden>Lot Id Select</option>
+          </select>
+
+          <button  id="statusButton" name="statusButton" onclick="getStatus()" >Check Status!!!</button>
+        </form>
+        <div id ="productTracker" class="ptracker" >
+            <ol class="progtrckr" data-progtrckr-steps="3">
+                <li class="progtrckr-todo" id="reportAdded">Report Added</li><!--
+             --><li class="progtrckr-todo" id="paymentStatus">Payment Status</li><!--
+             --><li class="progtrckr-todo" id="processorReportStatus">Processor Report Status</li>
+            </ol>
+        </div>
+                </div>
+
+            <div class="container" id="item-5" style="text-align: center;margin-top: 50px">
+              <div class="row"  style="text-align: center">
+                <h4>Transaction with Processor</h4>
+              </div>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "  >
+                  {% for dat in transactionHistoryValues %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                      <div class="card  ">
+
+
+                              <div class="card-block">
+
+                                  <h6><p class="card-text">Interest Key Name:{{dat.interestKey}}</p>
+                                  <p class="card-text">Processor Key:{{dat.processorKey}}</p>
+                                  <p class="card-text">Quantity sold:{{dat.quantity}}</p>
+                                  <p class="card-text">Quoted Price:{{dat.quotedPrice}}Rs</p></h6>
+                              </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+            <div id="item-6" style="margin-top: 50px;">
+              <div class="row" >
+                <h4 align="center">Broadcast for Micro-Finance!</h4>
+              </div>
+              <br>
+              <form action="{% url 'farmer' %}" method="POST" id="form" name="form">
+                {% csrf_token %}
+              <!--<p><input type="text" placeholder="username"/></p>-->
+              <!--<p><input type="password" placeholder="password" /></p>-->
+              <!--<p><input type="submit" value="Sign in" /></p>-->
+                  <input type="text" name = "yieldId" placeholder="Yield Id" style="margin-top: 10px;border-radius: 5px;width:375px"><br><br>
+                  <input type="text" name = "farmerName" placeholder="Farmer Name" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+                  <input type="text" name = "cropName" placeholder="Crop Name" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+                  <input type="text" name = "location" placeholder="Location" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+                  <input type="text" name = "quantity" placeholder="Quantity" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+                  <input type="text" name = "price" placeholder="Expected Price" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+                  <input type="text" name = "expDate" placeholder="Expected Date of Yield Produce" style="margin-top: 10px;border-radius: 5px;width:375px"/><br><br>
+<!--                  <input type="hidden" id="lat" name="latitude" value="123">-->
+<!--                  <input type="hidden" id="lon" name ="longitude" value="34">-->
+                  <button type="submit" class="btn btn-primary" name="microFarming" style="margin-top: 10px;border-radius: 25px;width:200px">Submit Details!</button>
+
+              </form>
+            </div>
+            <div class="container" id="item-8" style="text-align: center;margin-top: 50px">
+              <div class="row"  style="text-align: center">
+                <h4>Your Yeild Broadcasts</h4>
+              </div>
+              <br>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "  >
+                  {% for dat in yourYeildBrodcasts %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                      <div class="card  ">
+                        <div class="card-block">
+                            <h6><p class="card-text">farmerName : {{dat.farmerName}}</p>
+                            <p class="card-text">Crop Name : {{dat.cropName}}</p>
+                            <p class="card-text">Location : {{dat.location}}</p>
+                            <p class="card-text">Quantity : {{dat.quantity}}</p>
+                            <p class="card-text">Price : {{dat.price}}RS</p>
+                            <p class="card-text">Expiry Date : {{dat.expDate}}</p>
+                            <p class="card-text">Sponsor Status : {{dat.sponsorStatus}}</p>
+                            <p class="card-text">Received : {{dat.received}}</p>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+            <div class="container" id="item-9" style="text-align: center;margin-top: 50px">
+              <div class="row"  style="text-align: center">
+                <h4>Investor Deals</h4>
+              </div>
+              <br>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "  >
+                {% for dat in yourDeals %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                      <div class="card  ">
+                          <!--<p>Hey this is Request no 1</p>-->
+                          <form action="{% url 'farmer' %}" method="POST">
+                              {% csrf_token %}
+                              <div class="card-block">
+                                <h6><p class="card-text">Farmer Name : {{dat.farmerName}}</p>
+                                  <p class="card-text">Crop Name : {{dat.cropName}}</p>
+                                  <p class="card-text">Location : {{dat.location}}</p>
+                                  <p class="card-text">Quantity : {{dat.quantity}}</p>
+                                  <p class="card-text">Price : {{dat.price}}RS</p>
+                                  <p class="card-text">Expiry Date : {{dat.expDate}}</p>
+                                  <p class="card-text">Sponsor Status : {{dat.sponsorStatus}}</p>
+                                  <p class="card-text">Received : {{dat.received}}</p>
+                                  <h5> ---------------</h5>
+                                  <p class="card-text">Amount Invested : {{dat.amount}}</p>
+                                  <p class="card-text">Holding Percent : {{dat.holdingPercent}}</p>
+                                  <input type="hidden" name ="yeildId"  value={{dat.yeildId}}>
+                                  <input type="hidden" name ="dealId"  value={{dat.dealId}}>
+                                  <input type="hidden" name ="amount"  value={{dat.amount}}>
+                                  <input type="hidden" name ="price"  value={{dat.price}}>
+                                  <input type="hidden" name ="investorId"  value={{dat.investorId}}>
+                                  <input type="hidden" name ="tandS"  value={{dat.terms}}>
+                                  <input type="hidden" name ="holdingPercent"  value={{dat.holdingPercent}}>
+
+                                  <button type="submit" name="acceptDeal"  class="btn btn-warning" >Accept Deal</button>
+                                  <button type="submit" name="rejectDeal" value="reject" class="btn btn-warning" >Reject Deal</button>
+                              </div>
+                          </form>
+                      </div>
+                    </div>
+
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="container" id="item-10" style="text-align: center;margin-top: 50px">
+              <div class="row"  style="text-align: center">
+                <h4>Accepted Deals</h4>
+              </div>
+              <br>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "  >
+                {% for dat in acceptedList %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                      <div class="card  ">
+                          <!--<p>Hey this is Request no 1</p>-->
+                              <div class="card-block">
+                                <h6><p class="card-text">Farmer Name : {{dat.farmerName}}</p>
+                                  <p class="card-text">Crop Name : {{dat.cropName}}</p>
+                                  <p class="card-text">Location : {{dat.location}}</p>
+                                  <p class="card-text">Quantity : {{dat.quantity}}</p>
+                                  <p class="card-text">Price : {{dat.price}}RS</p>
+                                  <p class="card-text">Expiry Date : {{dat.expDate}}</p>
+                                  <p class="card-text">Sponsor Status : {{dat.sponsorStatus}}</p>
+                                  <p class="card-text">Received : {{dat.received}}</p>
+                                  <h5> ---------------</h5>
+                                  <p class="card-text">Amount Invested : {{dat.amount}}</p>
+                                  <p class="card-text">Holding Percent : {{dat.holdingPercent}}</p>
+                              </div>
+                      </div>
+                    </div>
+                {% endfor %}
+              </div>
+            </div>
+
+
+            <div class="container" id="item-7" style="text-align: center;margin-top: 50px">
+              <div class="row"  style="text-align: center">
+                <h4>Wearby Warehouse</h4>
+              </div>
+              <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "  >
+                  <div class="col-md-8" id="map" style = "height:100%"></div>
+
+                      <script>
+                          mapboxgl.accessToken = "{{ mapbox_access_token }}";
+                          var geojson = {{geojson|safe}}
+
+                          var map = new mapboxgl.Map({
+                          container: 'map',
+                          style: 'mapbox://styles/mapbox/streets-v11',
+                          center: [-65.017, -16.457],
+                          zoom: 5
+                          });
+
+
+                          // add markers to map
+                          geojson.features.forEach(function(marker) {
+                          // create a DOM element for the marker
+                            var el = document.createElement('div');
+                            var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                              marker.properties.details
+                              );
+                            el.className = 'marker';
+                            el.style.backgroundImage =
+                            'url(https://placekitten.com/g/' +
+                            marker.properties.iconSize.join('/') +
+                            '/)';
+                            el.style.width = marker.properties.iconSize[0] + 'px';
+                            el.style.height = marker.properties.iconSize[1] + 'px';
+
+                            el.addEventListener('click', function() {
+                            // window.alert(marker.properties.message);
+
+                              const element = document.querySelector("#one");
+                              if (element.classList.contains("hidden")){
+                              element.classList.add("show")
+                              }
+                              else{
+                              element.classList.add("hidden")
+                              }
+
+                            });
+
+
+                          // add marker to map
+                            new mapboxgl.Marker(el)
+                            .setLngLat(marker.geometry.coordinates)
+                            .setPopup(popup)
+                            .addTo(map);
+
+                          });
+                      </script>
+                    </div>
+                  </div>
+              </div>
+            </div> 
+   </div>
+{% endblock content %}
+

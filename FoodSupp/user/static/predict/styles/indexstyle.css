@@ -1,0 +1,29 @@
+<style>
+
+button.small{
+}
+
+.nav_btn{
+	text-align: center;
+	font-size: 1.5em;
+	padding-right:30px;
+	padding-left: 30px;
+	margin: 1em;
+}
+.icn{
+	margin: 6px;
+}
+
+.footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:25px;
+   width:100%;
+   background:#111;
+   text-align: center;
+   color : white;
+
+}
+
+</style>

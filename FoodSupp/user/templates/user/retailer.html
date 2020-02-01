@@ -1,0 +1,253 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% block content %}
+
+<style type="text/css">
+
+ body  {
+         background-image: url("https://secureservercdn.net/198.71.233.135/eff.57c.myftpupload.com/wp-content/uploads/2017/08/farm2.png?time=1570110846");
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+       }
+</style>
+<body>
+
+ <div class="container" style="display:block;height:700px;width:90%;margin-top:100px;background: rgba(255, 255, 255, 0.4);">
+
+   <br><br><br><br>
+     <div class="row" style="display: block;text-align: center;">
+       <h3><span ><a id="1" class="show" style="border-left: solid;border-right: solid;cursor: pointer;"> Processor Broadcasts </a></span>
+       <span><a id="2" class="show" style="border-right: solid;cursor: pointer;">Order Details with Processor </a></span>
+       <span><a id="4" class="show" style="border-right: solid;cursor: pointer;">Brodcast to Customer</a></span>
+           <span><a id="3" class="show" style="border-right: solid;cursor: pointer;">Add report </a></span>
+           <span><a id="5" class="show" style="border-right: solid;cursor: pointer;">Payment with Report </a></span>
+       </h3>
+     </div>
+     <div class="content-wrapper">
+
+         <div id="item-1" style=" display:block;text-align: center;margin-top: 50px;">
+             <div class="row"  style="display:block;text-align: center">
+               <h4>Processor Broadcasts.</h4>
+             </div>
+             <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+
+               {% csrf_token %}
+               {% for dat in data %}
+                 <div class="col-md-4" style="margin-top: 10px">
+                   <div class="card ">
+                       <form action="{% url 'retailer' %}" method="POST" id="form">
+                           {% csrf_token %}
+                           <div class="card-block">
+                              <br>
+                               <h5><p class="card-text">Product : {{dat.productName}}</p>
+                               <p class="card-text">Price : {{dat.Price}}</p>
+                               <p class="card-text">Available: {{dat.availableQuantity}}</p></h5>
+                               <br>
+                               <input type="text" name="requiredQuantity" placeholder="Quantity Required">
+                               <input type="hidden" name="lotKey" value="{{dat.lotKey}}">
+                               <input type="hidden" name="productName" value="{{dat.productName}}">
+                               <input type="hidden" name="productKey" value="{{dat.productKey}}">
+                               <input type="hidden" name="processorKey" value="{{dat.processorKey}}">
+                               <input type="hidden" name="quantity" value="{{dat.quantity}}">
+                               <input type="hidden" name="Price" value="{{dat.Price}}">
+               <!--                <input type="hidden" name="farmerLotKey" value="{{dat.farmerLotKey}}">-->
+                             <button type="submit" name="accept" value="acceptButton" class="btn btn-warning">Accept</button>
+                           </div>
+                       </form>
+                   </div>
+                 </div>
+               {% endfor %}
+             </div>
+
+         </div>
+         <div class="container" id="item-2" style="text-align: center;margin-top: 50px" >
+         <div class="row"  style="display:block;text-align: center">
+           <h4>Previous Order Details with Processor</h4>
+         </div>
+         <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+
+             {% for x in transactionDetails %}
+
+               <div class="col-md-4" style="margin-top: 10px">
+                 <div class="card " >
+                   <div class="card-block" >
+                    <br>
+                     <h5><p class="card-text"><u>Product Name</u> :  {{x.productName}}</p>
+                     <br>
+                     <p class="card-text"><u>Quantity</u> : {{x.requiredQuantity}}</p>
+                     <img src="{%static x.qrUrl %}" style="height:100px;width:100px">
+                     <br>
+                     <p class="card-text"><u>Price</u> : {{x.Price}}Rs</p></h5>
+                     <br>
+                   </div>
+                 </div>
+               </div>
+
+
+           {% endfor %}
+
+         </div>
+
+   </div>
+            <div id="items-3" style="text-align: center;margin-top: 50px;">
+           {% csrf_token %}
+           <div class="row"  style="display:block;text-align: center">
+                     <h4>Add report.</h4>
+           </div>
+           <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+               {% csrf_token %}
+               {% for dat in reportPendingOrders %}
+                   <div class="col-md-4" style="margin-top: 10px">
+                       <div class="card ">
+                       <!--<p>Hey this is Request no 1</p>-->
+                           <form action="{% url 'retailer' %}" method="POST" id="form1">
+                               {% csrf_token %}
+                               <div class="card-body">
+
+
+                                   Lot Key:<p>{{dat.lotKey}}</p>
+                                   Product Key:<p>{{dat.productKey}}</p>
+                                   Lot Number:<p>{{dat.productName}}</p>
+                                   Quantity:<p>{{dat.requiredQuantity}}</p>
+                                   <input type="text" name = "processorRemarksOnPurchasedProducts" placeholder="processorRemarksOnPurchasedProducts"><br>
+                                   <br>
+                                   <input type="text" name = "receivedShipments" placeholder="receivedShipments"><br><br>
+                                   <!--Available: <p>{{dat.quantity}}</p>-->
+                                   <!--<p>{{dat.expectedPrice}}</p>-->
+                                   <!--<input type="text" name="requiredQuantity" placeholder="Quantity Required">-->
+                                   <input type="hidden" name="processorAddress" value="{{dat.processorKey}}">
+                                   <input type="hidden" name="productKey" value="{{dat.productKey}}">
+                                   <input type="hidden" name="lotKey" value="{{dat.lotKey}}">
+                                   <input type="hidden" name="batchNumber" value="{{dat.batchNumber}}">
+                                 <button type="submit" name="reportAddButton" value="reportAddButton" class="btn btn-warning" >reportAddButton</button>
+                                   <!--<a href="{% url 'processor' %}" class="btn btn-primary stretched-link">Accept</a>-->
+                                 <!--<button type="submit" name="rejectButton" value="reject" class="btn btn-warning" >Deny</button>-->
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               {% endfor %}
+
+           </div>
+   </div>
+   <div class="container" id="item-4" style="text-align: center;margin-top: 50px" >
+         <div class="row"  style="display:block;text-align: center">
+           <h4>Broadcast to Customersr</h4>
+         </div>
+         <form action="{% url 'retailer' %}" method="POST" id="retailerForm" name="retailerForm">
+       {% csrf_token %}
+     <!--<p><input type="text" placeholder="username"/></p>-->
+     <!--<p><input type="password" placeholder="password" /></p>-->
+     <!--<p><input type="submit" value="Sign in" /></p>-->
+       <select name="dropdown1" id="processorKey">
+           <option value="" selected="selected">Select Any Option</option>
+           {% for product in processorKeys %}
+               <option value="{{product}}">{{product}}</option>
+           {% endfor %}
+       </select>
+       <input type="submit" value="processorKey">
+       <script>
+           var fetchedData;
+           $(document).ready(function(){
+               $('#processorKey').on('change',function(){
+                   var temp = $(this).val();
+
+                   $.ajax({
+                       type:"GET",
+                       url:"getData/",
+                       data:{
+                           'post_id':'getTransactionKey',
+                           'processorKey':temp,
+                       },
+                       success: function(data){
+                           var mySelect = $('#transactionKey');
+                           $.each(data, function(key, value) {
+                               console.log(key);
+                               console.log(value);
+                               mySelect.append(
+                                   $('<option></option>').val(value.transactionKey).html(value.productName)
+                               );
+
+                           });
+                           var mySelect = $();
+                       }
+                   });
+               });
+           });
+       </script>
+       <select name="dropdown2" id ="transactionKey">
+               <option value="" selected="selected">Select one option</option>
+       </select>
+       <label for="Quantity">Quantity</label>
+       <input type="text" readonly id="quantity" name="quantity" placeholder="Quantity">
+       <script>
+           var fetchedData;
+           $(document).ready(function(){
+               $('#transactionKey').on('change',function(){
+                   var temp = $(this).val();
+                   var processorKey = document.getElementById('processorKey').value;
+
+                   $.ajax({
+                       type:"GET",
+                       url:"getData/",
+                       data:{
+                           'post_id':'getQuantity',
+                           'transactionKey':temp,
+                           'processorKey' : processorKey
+                       },
+                       success: function(data){
+                           var mySelect = $('#quantity');
+                           $.each(data, function(key, value) {
+                               document.getElementById('quantity').value = value
+                           });
+                           var mySelect = $();
+                       }
+                   });
+               });
+           });
+       </script>
+
+       <input type="text" name = "Price" placeholder="Price for each unit"/>
+       <input type="hidden" name="processorKey" value="{{product.processorKey}}">
+       <button type="submit" name="broadcast">Submit Details!!</button>
+   </form>
+   </div>
+
+
+     <div id="items-5" style="text-align: center;margin-top: 50px;">
+               {% csrf_token %}
+               <div class="row"  style="display:block;text-align: center">
+                         <h4>Payments with reports added.</h4>
+               </div>
+               <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+                   {% for dat in reportAddedOrders %}
+                       <div class="col-md-4" style="margin-top: 10px">
+                           <div class="card ">
+
+
+                                   {% csrf_token %}
+                               <div class="card-body">
+
+
+                                   Product Key:<p>{{dat.productKey}}</p>
+
+                                   Purchased Quantity:<p>{{dat.requiredQuantity}}</p>
+
+
+
+                               </div>
+                           </div>
+                       </div>
+                   {% endfor %}
+
+
+               </div>
+
+       </div>
+</div>
+ </div>
+</body>
+{% endblock content %}

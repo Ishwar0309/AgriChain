@@ -1,0 +1,65 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div id="map" ></div>
+
+                      <script>
+                          mapboxgl.accessToken = "{{ mapbox_access_token }}";
+                          var geojson = {{geojson|safe}}
+
+                          var map = new mapboxgl.Map({
+                          container: 'map',
+                          style: 'mapbox://styles/mapbox/streets-v11',
+                          center: [-65.017, -16.457],
+                          zoom: 5
+                          });
+                         
+
+                          // add markers to map
+                          geojson.features.forEach(function(marker) {
+                          // create a DOM element for the marker
+                            var el = document.createElement('div');
+                            var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                              marker.properties.details
+                              );
+                            el.className = 'marker';
+                            el.style.backgroundImage =
+                            'url(https://placekitten.com/g/' +
+                            marker.properties.iconSize.join('/') +
+                            '/)';
+                            el.style.width = marker.properties.iconSize[0] + 'px';
+                            el.style.height = marker.properties.iconSize[1] + 'px';
+
+                            el.addEventListener('click', function() {
+                            // window.alert(marker.properties.message);
+
+                              const element = document.querySelector("#one");
+                              if (element.classList.contains("hidden")){
+                              element.classList.add("show")
+                              }
+                              else{
+                              element.classList.add("hidden")
+                              }
+
+                            });
+
+
+                          // add marker to map
+                            new mapboxgl.Marker(el)
+                            .setLngLat(marker.geometry.coordinates)
+                            .setPopup(popup)
+                            .addTo(map);
+                           
+                          });
+
+
+
+
+
+
+                      </script>
+                   
+
+{% endblock content %}

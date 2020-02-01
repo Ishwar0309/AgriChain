@@ -1,0 +1,342 @@
+
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+
+  body  {
+              background-image: url("https://secureservercdn.net/198.71.233.135/eff.57c.myftpupload.com/wp-content/uploads/2017/08/farm2.png?time=1570110846");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+        }
+</style>
+<body>
+
+  <div class="container" style="display: block; height: 700px; width: 90%; margin-top: 100px; background: rgba(255, 255, 255, 0.4);">
+    <div style="text-align: center">
+      <br>
+      <h4>Your Retailer Trade Section.</h4>
+    </div>
+    <br><br><br>
+
+      <div class="row" style="display: block; text-align: center;">
+
+
+        <h3><span ><a id="1" class="show" style="border-left: solid; border-right: solid;cursor: pointer;"> Broadcast </a></span>
+          <span ><a id="3" class="show" style="border-right: solid; cursor: pointer;"> Your Broadcasts </a></span>
+
+        <span><a id="2" class="show" style="border-right: solid;cursor: pointer;">Order Details with Retailer </a></span></h3>
+
+      </div>
+      <div class="content-wrapper">
+
+          <div id="item-1" style=" display: block; text-align: center; margin-top: 50px;">
+
+
+               <form action="{% url 'processor' %}" method="POST" id="processorForm" name="processorForm">
+                   {% csrf_token %}
+                 <!--<p><input type="text" placeholder="username"/></p>-->
+                 <!--<p><input type="password" placeholder="password" /></p>-->
+                 <!--<p><input type="submit" value="Sign in" /></p>-->
+                   <select name="dropdown" style="margin-top: 10px; border-radius: 5px; width:375px">
+                       {% for lotKey in lots %}
+                           <option value="{{lotKey.lot}}">Lot: {{lotKey.lot}}, Crop: {{lotKey.cropName}}</option>
+                       {% endfor %}
+                   </select>
+
+                   <br><br>
+
+                   <input type="text" name = "productName" placeholder="Product Name" style="margin-top: 10px; border-radius: 5px; width: 375px"/>
+                   <br>
+                   <br>
+                   <input type="text" name = "quantity" placeholder="Quantity" style="margin-top: 10px; border-radius: 5px; width: 375px"/>
+                   <br>
+                   <br>
+                   <input type="text" name = "Price" placeholder="Price for each unit" style="margin-top: 10px; border-radius: 5px; width: 375px"/><br><br>
+                   <button type="submit" class="btn btn-primary" name="broadcast" style="margin-top: 10px; border-radius: 5px; width: 200px">Submit Details!</button><br><br>
+               </form>
+            </div>
+
+          <div class="container" id="item-2" style="text-align: center;margin-top: 50px" >
+                    <div class="row"  style="display:block;text-align: center">
+                      <h4>Order Details with Retailer</h4>
+                    </div>
+                    <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+                      {% for x in orderDetails %}
+                        <div class="col-md-4" style="margin-top: 10px">
+                            <div class="card " >
+
+                                <div class="card-block" >
+
+                                            <h5><p class="card-text"><u>Product Name</u> :  {{x.productName}}</p>
+                                            <p class="card-text"><u>Retailer Name</u> :  {{x.retName}}</p>
+                                            <p class="card-text"><u>Quantity</u> :  {{x.requiredQuantity}}</p>
+                                            <p class="card-text"><u>Price</u> : {{x.Price}}Rs</p>
+                                            </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                      {% endfor %}
+
+                    </div>
+          </div>
+          <div class="container" id="item-3" style="text-align: center;margin-top: 50px" >
+            <div class="row"  style="display:block;text-align: center">
+              <h4>Your Product Broadcasts.</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+               {% for dat in broadcastList %}
+               <div class="col-md-4" style="margin-top: 10px">
+                  <div class="card ">
+                      <!--<p>Hey this is Request no 1</p>-->
+                      <div class="card-block">
+                          <h5><p class="card-text">Product Name : {{dat.productName}}</p>
+                          <p class="card-text">Total Quantity : {{dat.quantity}}</p>
+                          <p class="card-text">Available : {{dat.availableQuantity}}</p>
+                          <p class="card-text">Price : {{dat.Price}}Rs</p></h5>
+                        </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+          </div>
+    </div>
+  <!---farmer--->
+  </div>
+
+
+  <div class="container" style="display:block;height:700px;width:90%;margin-top:100px;margin-left:auto;margin-right:auto;background: rgba(255, 255, 255, 0.4);">
+    <div style="text-align: center">
+      <h4>Your Farmer Trade Section.</h4>
+    </div>
+    <br><br><br><br>
+      <div class="row" style="display: block;text-align: center;">
+
+
+        <h4><span ><a id="4" class="show" style="border-left: solid;border-right: solid;cursor: pointer;"> Farmer Products Brodcasts </a></span>
+        <span><a id="5" class="show" style="border-right: solid;cursor: pointer;">Pending Payments </a></span>
+            <span><a id="6" class="show" style="border-right: solid;cursor: pointer;">Payments with Report added</a></span>
+            <span><a id="7" class="show" style="border-right: solid;cursor: pointer;">Add Report </a></span>
+            <span><a id="8" class="show" style="border-right: solid;cursor: pointer;">Interests of Processors</a></span>
+            <span><a id="9" class="show" style="border-right: solid;cursor: pointer;">Rejected Interests by farmers</a></span>
+        </h4>
+
+
+      </div>
+
+      <div class="content-wrapper1" style="">
+
+          <div id="items-4" style="text-align: center;margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row"  style="display:block;text-align: center">
+                      <h4>Farmer Products Brodcast.</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+              {% for dat in data %}
+                <div class="col-md-4" style="margin-top: 10px">
+                  <div class="card ">
+
+                      <form action="{% url 'processor' %}" method="POST" id="form3">
+                          {% csrf_token %}
+                        <div class="card-block">
+
+                            <h5><p class="card-text"><u>Crop Name</u> : {{dat.cropName}}</p>
+                            <p class="card-text"><u>Farmer Name</u> : {{dat.farmerName}}</p>
+
+                            <p class="card-text"><u>Available</u> :  {{dat.quantity}}</p>
+                            <p class="card-text"><u>Expected Price</u> : {{dat.expectedPrice}}Rs</p></h5>
+                            <input type="text" name="requiredQuantity" placeholder="Quantity Required" style="margin-top: 10px;border-radius: 25px;width:275px">
+                            <input type="text" name="quotedPrice" placeholder="Price Quoted" style="margin-top: 10px;border-radius: 25px;width:275px">
+                            <input type="hidden" name="cropName" value="{{dat.cropName}}">
+                            <input type="hidden" name="farmerKey" value="{{dat.farmerKey}}">
+                            <input type="hidden" name="farmerId" value="{{dat.farmerId}}">
+                            <input type="hidden" name="quantity" value="{{dat.quantity}}">
+                            <input type="hidden" name="expectedPrice" value="{{dat.expectedPrice}}">
+                            <input type="hidden" name="farmerLotKey" value="{{dat.farmerLotKey}}">
+                            <button type="submit" name="acceptButton" value="accept" class="btn btn-warning" style="margin-top: 10px;border-radius: 25px;width:200px">Accept</button>
+
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+
+
+          <div id="items-5" style="text-align: center;margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row"  style="display:block;text-align: center">
+                      <h4>Pending Payments.</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+
+                    {% for dat in farmerPaymentData %}
+
+                        <div class="col-md-4" style="margin-top: 10px">
+                            <div class="card ">
+                                <!--<p>Hey this is Request no 1</p>-->
+                                <form action="{% url 'processor' %}" method="POST" id="form5">
+                                    {% csrf_token %}
+                                    <div class="block">
+
+
+                                        <p>Farmer Name : {{dat.farmerName}}</p>
+                                        <p>Lot Number:{{dat.lotNumber}}</p>
+                                        <p>quantity:{{dat.quantity}}</p>
+                                        <p>Price:{{dat.quotedPrice}}</p>
+                                        <p>{{dat.amountPayable}}</p>
+
+                                        <!--Available: <p>{{dat.quantity}}</p>-->
+                                        <!--<p>{{dat.expectedPrice}}</p>-->
+                                        <!--<input type="text" name="requiredQuantity" placeholder="Quantity Required">-->
+                                        <input type="hidden" name="amountPayable" value="{{dat.amountPayable}}">
+                                        <input type="hidden" name="lotNumber" value="{{dat.lotNumber}}">
+                                        <button type="submit" name="paymentFarmerButton" value="paymentFarmerButton" class="btn btn-warning" >Pay {{dat.amountPayable}} to Farmer</button>
+                                        <!--<a href="{% url 'processor' %}" class="btn btn-primary stretched-link">Accept</a>-->
+                                      <!--<button type="submit" name="rejectButton" value="reject" class="btn btn-warning" >Deny</button>-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+          </div>
+
+
+        <div id="items-6" style="text-align: center;margin-top: 50px;">
+                {% csrf_token %}
+                <div class="row"  style="display:block;text-align: center">
+                          <h4>Payments with report Added .</h4>
+                </div>
+                <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+                    {% for dat in transactionHistory %}
+                        <div class="col-md-4" style="margin-top: 10px">
+                            <div class="card ">
+
+
+                                    {% csrf_token %}
+                                <div class="card-body">
+
+
+                                    Farmer Name:<p>{{dat.farmerName}}</p>
+                                    
+                                    Quantity:<p>{{dat.quantity}}</p>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+
+        </div>
+
+    <div id="items-7" style="text-align: center;margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row"  style="display:block;text-align: center">
+                      <h4>Add report for Farmer product.</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+
+
+                {% csrf_token %}
+                {% for dat in reportPaidTransactions %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                        <div class="card ">
+                        <!--<p>Hey this is Request no 1</p>-->
+                            <form action="{% url 'processor' %}" method="POST" id="form1">
+                                {% csrf_token %}
+                                <div class="card-body">
+
+
+                                    Farmer Key:<p>{{dat.farmerKey}}</p>
+                                    Lot Number:<p>{{dat.lotNumber}}</p>
+                                    Quantity:<p>{{dat.quantity}}</p>
+                                    <input type="text" name = "processorRemarksOnPurchasedProducts" placeholder="processorRemarksOnPurchasedProducts"><br>
+                                    <input type="text" name = "receivedShipments" placeholder="receivedShipments"><br><br>
+                                    <!--Available: <p>{{dat.quantity}}</p>-->
+                                    <!--<p>{{dat.expectedPrice}}</p>-->
+                                    <!--<input type="text" name="requiredQuantity" placeholder="Quantity Required">-->
+                                    <input type="hidden" name="processorAddress" value="{{dat.processorAddress}}">
+                                    <input type="hidden" name="farmerAddress" value="{{dat.farmerAddress}}">
+                                    <input type="hidden" name="lotNumber" value="{{dat.lotNumber}}">
+                                  <button type="submit" name="reportAddButton" value="reportAddButton" class="btn btn-warning" >reportAddButton</button>
+                                    <!--<a href="{% url 'processor' %}" class="btn btn-primary stretched-link">Accept</a>-->
+                                  <!--<button type="submit" name="rejectButton" value="reject" class="btn btn-warning" >Deny</button>-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+    </div>
+          <div id="items-8" style="text-align: center;margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row"  style="display:block;text-align: center">
+                      <h4>Interests of Processors.</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+
+
+                {% csrf_token %}
+                {% for dat in processorInterests %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                        <div class="card ">
+                        <!--<p>Hey this is Request no 1</p>-->
+                            <form action="{% url 'processor' %}" method="POST" id="form2">
+                                {% csrf_token %}
+                                <div class="card-body">
+
+
+                                    Farmer Name:<p>{{dat.farmerName}}</p>
+                                    Quoted Price:<p>{{dat.quotedPrice}}</p>
+                                    Quantity Requested:<p>{{dat.quantityRequested}}</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+          <div id="items-9" style="text-align: center;margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row"  style="display:block;text-align: center">
+                      <h4>Rejected Interests By farmers</h4>
+            </div>
+            <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue ">
+
+
+                {% csrf_token %}
+                {% for dat in rejectedInterests %}
+                    <div class="col-md-4" style="margin-top: 10px">
+                        <div class="card ">
+                        <!--<p>Hey this is Request no 1</p>-->
+                                <div class="card-body">
+                                    Farmer Name:<p>{{dat.farmerName}}</p>
+                                    Quoted Price:<p>{{dat.quotedPrice}}</p>
+                                    Quantity Requested:<p>{{dat.quantityRequested}}</p>
+                                </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+{% endblock content %}

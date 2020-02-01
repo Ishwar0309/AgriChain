@@ -1,0 +1,57 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+     <br><br><br><br>
+
+        <div style="text-align: center">
+          <h4>Report Section</h4>
+        </div>
+        <br><br><br><br>
+          <div class="row" style="text-align:center">
+              <div class="col-md-4" style="margin-right:auto;margin-left:auto;background: rgba(255, 255, 255, 0.4);float:center;">
+                  <h3>Quality Checker Report</h3>
+                      <h5>Quality inspector Address:{{qualityReport.0}}<br>
+                      Sample Size: {{qualityReport.1}}<br>
+                      Defective: {{qualityReport.2}}<br>
+                          Quantity: {{qualityReport.3}}<br></h5>
+
+
+
+              </div>
+          </div>
+            <div class="row"  style="text-align:center;margin-top:10px">
+
+              <div  class="col-md-4" style="margin-right:auto;margin-left:auto;background: rgba(255, 255, 255, 0.4);float:center;">
+
+                   <h3>Processor Report</h3>
+                      <h5>Processor report:{{processorReport.0}}<br>
+                          Date of Post: {{processorReport.1}}<br></h5>
+
+              </div>
+            </div>
+            <div class="row"  style="text-align:center;margin-top:10px">
+              <div  class="col-md-4" style="margin-right:auto;margin-left:auto;background: rgba(255, 255, 255, 0.4);float:center;">
+
+                  <h3>
+                      Retailer Report
+                  </h3>
+                  <h5>Retailer Product :{{retailerReport.0}}<br>
+                  Retailer Report :{{retailerReport.1}}<br>
+                  Crop Used :{{retailerReport.2}}<br>
+                  Manufactured Date :{{retailerReport.3}}<br>
+                      Quantity :{{retailerReport.4}}<br></h5>
+
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+
+
+
+
+{% endblock content %}

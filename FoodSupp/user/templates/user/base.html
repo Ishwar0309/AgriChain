@@ -1,0 +1,206 @@
+<head>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+</head>
+<style type="text/css">
+	body  {
+              background-image: url("https://wallpaperplay.com/walls/full/c/2/1/57997.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+        }
+
+.edu-cont {
+    text-align: center;
+}
+.edu-text {
+    font-size: 3rem;
+    line-height: 1.5;
+}
+.video-box {
+    width: 15%;
+    margin: 20px 20px 50px;
+}
+  #map { position: absolute; top:55px;bottom:0; width: 100%;}
+
+  .marker {
+display: block;
+border: none;
+border-radius: 50%;
+cursor: pointer;
+padding: 0;
+right:0px
+}
+
+
+.content-wrapper >div{
+display:none;
+}
+
+.content-wrapper1 >div{
+display:none;
+}
+.scrollbar-light-blue::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #F5F5F5;
+  border-radius: 10px; }
+
+.scrollbar-light-blue::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5; }
+
+.scrollbar-light-blue::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #82B1FF; }
+
+.square::-webkit-scrollbar-track {
+  border-radius: 0 !important; }
+
+.square::-webkit-scrollbar-thumb {
+  border-radius: 0 !important; }
+
+.thin::-webkit-scrollbar {
+  width: 6px; }
+
+.example-1 {
+  margin-left:50px;
+  position:relative;
+  overflow-y: scroll;
+  height: 430px;
+  min-width:100vh;
+}
+.example-2 {
+  margin-left:50px;
+  position:relative;
+  overflow-y: scroll;
+  height: 430px;
+  min-width:100vh;
+}
+.carousel-inner img {
+	justify-content: center;
+      width: 75%;
+      height: 75%;
+  }
+input[type="text"]::placeholder {
+
+                /* Firefox, Chrome, Opera */
+                text-align: center;
+            }
+<!--#productTracker {-->
+<!--  display: none;-->
+<!--}-->
+</style>
+<script>
+  $(function(){
+    var $allItems =  $(".content-wrapper > div");
+    $(document.body).on("click", "a.show", function () {
+        var id = this.id, itemId = "#item-" + id;
+        $allItems.not($(itemId).toggle()).hide();
+    });
+    var $allItems1 =  $(".content-wrapper1 > div");
+    $(document.body).on("click", "a.show", function () {
+    	console.log("here");
+        var id = this.id, itemId = "#items-" + id;
+        $allItems1.not($(itemId).toggle()).hide();
+    });
+});
+function getStatus(){
+
+    selectedValue = document.getElementById('idSelect').value;
+    lotIdSelected = document.getElementById('lotIdSelect').value;
+    $.ajax({
+                type: "GET",
+                url: "getData/",
+
+                data: {
+                    'post_id':'statusCheck',
+                    'selectedValue': selectedValue,
+                    'lotIdSelected': lotIdSelected
+                },
+                success: function (data) {
+
+                }
+    });
+}
+
+$(document).ready(function () {
+  // Listen to click event on the submit button
+  $('#statusButton').click(function (e) {
+
+    e.preventDefault();
+
+    var selectedValue = $('#idSelect').val();
+    var lotIdSelected = $('#lotIdSelect').val();
+
+
+
+    $.ajax({
+                type: "GET",
+                url: "getData/",
+
+                data: {
+                    'post_id':'statusCheck',
+                    'selectedValue': selectedValue,
+                    'lotIdSelected': lotIdSelected
+                },
+                success: function (data) {
+
+                }
+    });
+  });
+});
+</script>
+
+{% if stake == "processor"  %}
+	<nav class="navbar navbar-expand-sm  fixed-top "style="background: rgba(255, 255, 255, 0.4);width: 100%;margin-bottom: 40px">
+
+{% else %}
+
+
+	<nav class="navbar navbar-expand-sm  fixed-top "style="opacity: 0.8;width: 100%;margin-bottom: 40px">
+
+{% endif %}
+
+	    <div class="container">
+	      <h2><b><a class="navbar-brand" href="index.html" style="color:black">Supply<span>Chain.</span></a></b></h2>
+	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu" style="color:black"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav nav ml-auto">
+	          <li class="nav-item"><a href="{% url 'user-home' %}" class="nav-link" style="color:black"><b><span>Home</span></b></a></li>
+	          <li class="nav-item"><a href="#about-section" class="nav-link" style="color:black"><b><span>About</span></b></a></li>
+	          <li class="nav-item"><a href="#about-section" class="nav-link" style="color:black"><b><span>Profile</span></b></a></li>
+				{% if stake == "farmer" %}
+					<li class="nav-item"><a href="{% url 'home' %}" class="nav-link" style="color:black"><b><span>Crop Predictor </span></b></a></li>
+				<li class="nav-item"><a href="{% url 'new_index' %}" class="nav-link" style="color:black"><b><span>Analyse Crop Yield </span></b></a></li>
+					<li class="nav-item"><a href="{% url 'index' %}" class="nav-link" style="color:black"><b><span>Crop Price Predictor </span></b></a></li>
+				{% endif %}
+
+	        </ul>
+	      </div>
+	    </div>
+</nav>
+	</nav>
+
+{% block content %}
+
+{% endblock %}

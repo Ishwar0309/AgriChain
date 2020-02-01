@@ -1,0 +1,63 @@
+
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="display:block;height:700px;width:90%;margin-top:100px;background: rgba(255, 255, 255, 0.4);">
+    <div style="text-align: center">
+      <h4>Your Retailer Trade Section.</h4>
+    </div>
+    <br><br><br><br>
+
+
+
+
+      <div class="row" style="display: block;text-align: center;">
+          <h3><span ><a id="1" class="show" style="border-left: solid;border-right: solid;cursor: pointer;">Retailer Broadcast </a></span></h3>
+      </div>
+      <div class="content-wrapper">
+          <div class="container" id="item-1" style="text-align: center;margin-top: 50px" >
+                    <div class="row"  style="display:block;text-align: center">
+                      <h4>Retailer Broadcasts</h4>
+                    </div>
+                    <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue " >
+                      {% for x in productList %}
+                        <div class="col-md-4" style="margin-top: 10px">
+                            <div class="card" >
+                                <form method="POST" action ="{% url 'customer' %}">
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="transactionKey" value="{{x.transactionKey}}">
+                                    <input type="hidden" name="processorKey" value="{{x.processorKey}}">
+                                    <input type="hidden" name="retailerKey" value="{{x.retailerKey}}">
+
+
+
+
+                                        <div class="card-block" >
+                                          <br>
+
+                                                    <h5><p class="card-text"><u>Product Name</u> :  {{x.productName}}</p>
+                                                        <p class="card-text"><u>Price</u> :  {{x.Price}}Rs</p>
+                                                    <p class="card-text"><u>Retailer Name</u> : {{x.retailerName}} </p>
+                                                    <p class="card-text"><u>Available Quantity</u> : {{x.availableQuantity}}</p>
+
+                                                    </h5>
+                                        </div>
+                                        <br>
+                                    <button  type="submit" name="getReports"><a class="show" id="9">Get Reports</a></button>
+        <!--                            <a class="show" id="10">Get Reports</a>-->
+                                </form>
+                            </div>
+
+                        </div>
+                      {% endfor %}
+
+                    </div>
+          </div>
+
+
+    </div>
+</div>
+
+{% endblock content %}

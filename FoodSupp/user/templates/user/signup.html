@@ -1,0 +1,49 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+<style type="text/css">
+  body  {
+              background-image: url("https://wallup.net/wp-content/uploads/2019/05/10/38061-nature-landscapes-farm-fields-crops-plants-suset-sunrise-sky.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+        }
+</style>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container" style="text-align: center;margin-top: 15px">
+    <h3 style="background: rgba(255, 255, 255, 0.4);"> SignUp Here and Start Trading!</h3>
+    <form action="/postsignUp/" method="post" style="background: rgba(255, 255, 255, 0.4); height:400px; margin-top: 40px">
+        {% csrf_token %}
+        <b>Name:</b>
+        <input  name="name" style="margin-top:40px;border-radius:5px"><br>
+
+        <b>Email:</b>
+        <input type="email" name="email" style="margin-top:40px;border-radius:5px"><br>
+        <b>Password:</b>
+        <input type="password" name="pass" style="margin-top:40px;border-radius:5px"><br>
+
+        <b>Public Key:</b>
+        <input type="text" name="address" style="margin-top:40px;border-radius:5px"><br>
+
+        <b>Sign Up as:</b>
+        <select name="drop" style="margin-top:40px;border-radius:5px">
+          <option value="Farmer">Farmer</option>
+          <option value="Processor" >Processor</option>
+          <option value="Logistics">Logistics</option>
+          <option value="Quality Checker">Quality Checker</option>
+          <option value="Retailer">Retailer</option>
+          <option value="Customer">Customer</option>
+          <option value="Investor">Investor</option>
+        </select>
+        <button class="btn btn-primary" type="submit" value="Sign Up">Sign Up</button>
+    </form>
+    <b>Alreadyhave an account? Click here</b>
+          <a href="{% url 'user-signIn'%}" style="color:black"><h5>LogIn</h5> </a>
+
+</div>
+</body>
+{% endblock content %}

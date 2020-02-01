@@ -1,0 +1,1586 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width , initial-scale=1.0" >
+  <meta name="description" content="Fertilizer Prediction">
+  <meta name="author" content="Mayank Singh">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="{% static 'predict/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script type="text/javascript" src="{% static 'predict/login2_js.js' %}"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+	<link href="{% static 'predict/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+ 	<link type="text/css" href="{% static 'predict/styles/login2_css.css' %}" rel="stylesheet">
+ 	<link type="text/css" href="{% static 'predict/styles/index_css.css' %}" rel="stylesheet">
+ 	<link type="text/css" href="{% static 'predict/styles/indexstyle.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+
+<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Precision Farming</a>
+    </div>
+     <ul class="nav navbar-nav">
+      <li id="nav1"><a href="{% url 'home' %}">Home</a></li>
+      <!-- <li id="nav2"><a href="/users/logs">Logs</a></li> -->
+      <!-- <li id="nav3"><a href="/users/graph">Graphs</a></li>       -->
+    </ul>
+    
+ </nav>
+ </div>
+
+    
+
+<div class="container-fluid">
+
+{% if 'TOMATO' == crop %}
+
+
+  <center>
+    <img src="{% static 'predict/tomato.jpg' %}" class="img-rounded" width="304" height="236">
+  </center>
+  <div class="well container-fluid">
+    <div class="col-right" style="padding-left:0px;"><h2>Tomato Cultivation Guide &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h2></div>
+   <!--  <tr>
+      <td width="100%"> -->
+        <div class="row content">
+          <div class="row space-clear container-fluid">
+            <h2><a name="climate"></a> Climatic Requirements</h2>
+            <p>Tomato is a warm season crop, it requires warm and
+            cool climate. The plants cannot withstand frost and high humidity. Also
+            light intensity affects pigmentation, fruit colour, fruit set. The plant
+            is highly affected by adverse climatic conditions. It requires different
+            climatic range for seed germination, seedling growth, flower and fruit
+            set, and fruit quality. Temperature below 10<sup>0</sup>C and above 38<sup>0</sup>C
+            adversely affects plant tissues thereby slow down physiological
+            activities. It thrives well in temperature 10<sup>0</sup>C to 30<sup>0</sup>C
+            with optimum range of temperature is 21-24<sup>0</sup>C. The mean
+            temperature below 16<sup>0</sup>C and above 27<sup>0</sup>C are not
+            desirable. The plant doesn’t withstand frost, it requires low to
+            medium rainfall, and does well under average monthly temperature of 21
+            to 23<sup>0</sup>C. Avoid water stress and long dry period as it causes
+            cracking of fruits. Bright sunshine at the time of fruit set helps to
+            develop dark red coloured fruits.</p>
+          </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="termerature"></a> Temperature Requirement</h2>
+          <table class="table table-bordered">
+            <tr>
+              <td>Sr.<br> No.</td>
+              <td ROWSPAN="2">Stages</td>
+              <td COLSPAN="3">Temperature (<sup>0</sup>C)</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Minimum</td>
+              <td>Suitable</td>
+              <td>Maximum</td>
+            </tr>
+            <tr>
+              <td>1.</td>
+              <td>Seed germination</td>
+              <td>11</td>
+              <td>16-29</td>
+              <td>34</td>
+            </tr>
+            <tr>
+              <td>2.</td>
+              <td>Seedling growth</td>
+              <td>18</td>
+              <td>21-24</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td ROWSPAN="2">3.</td>
+              <td ROWSPAN="2">Fruit set (day)<br>
+                (night)
+              </td>
+              <td>10</td>
+              <td>15-17</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>20-24</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>4.</td>
+              <td>Red colour development</td>
+              <td>10</td>
+              <td>20-24</td>
+              <td>30</td>
+            </tr>
+          </table>
+        </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="Soil Requirement"></a>Soil Requirement</h2>        
+          <p>Tomatoes do very well on most mineral soils, but they
+          prefer deep, well drained sandy loams. Upper layer of soil should be
+          porous with little sand and good clay in the subsoil. Soil depth 15 to
+          20cm proves to be good for healthy crop. Deep tillage can allow for
+          adequate root penetration in heavy clay type soils, which allows for
+          production in these soil types.<br /><br />Tomato is a moderately tolerant crop to a wide pH
+          range. A pH of 5.5- 6.8 is preferred. Though tomato plants will do well
+          in more acidic soils with adequate nutrient supply and availability.
+          Tomato is moderately tolerant to acid an soil that is pH of 5.5. The
+          soils with proper water holding capacity, aeration, free from salts are
+          selected for cultivation.<br /><br />Soils extremely high in organic matter are not
+          recommended due to the high moisture content of this media and nutrient
+          deficiencies. But, as always, the addition of organic matter to mineral
+          soils will increase yield.</p></div>
+          <div class="row space-clear container-fluid">
+          <h2><a name="Choice"></a>Choice of seeds</h2>
+          <p>After seed production, diseased, broken seeds are
+          discarded. The seeds for sowing should be free from inert matter. Early
+          germinating, bold, uniform in shape and size, seeds are selected for
+          sowing. Hybrid seeds from F1 generation are advantageous for sowing as
+          it gives early and high yield uniform fruity, resistant to adverse
+          environmental conditions.</font></p>
+          <strong>a) Seed and sowing</strong>
+          <p>Tomato is generally cultivated by transplanting
+          seedlings on ridges and furrows. At the time of transplanting seedlings
+          are harder by exposing to open weather or by withholding irrigation. A
+          seed rate of 400 to 500g/ha is required.</p>
+          <p>Seeds are treated with Thiram @ 3g/kg of seed to
+          protect from seed born diseases. Seed treatment with B. naphthoxyacetic
+          acid (BNOA) at 25 and 50 ppm, gibberllic acid (GA3) at 5-20 ppm and
+          chlorophenoxy acetic at 10 and 20 ppm was found to improve the growth
+          and yield of tomato.</p>
+          <p>Seeds are sown in June July for autumn winter crop
+          and for spring summer crop seeds are sown in November. In the hills seed
+          is sown in March April. The spacing recommended for the autumn winter
+          crop is 75 x 60cm and for spring summer crop 75 x 45cm.</p>
+        </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="Nursery Preparation"></a>Nursery Preparation and Care</h2>
+                     <p style="text-align:center"><img border="0" src="https://www.indiaagronet.com/tomato/resources/images/zari.gif" width="25%" height="193"></p>
+                     <p>The ideal seedbed should be 60cm wide, 5-6cm long and
+          20-25cm high. Clods and stubbles should be removed from the seedbed. Add
+          sieved FYM and fine sand on the seedbed. Bring them to fine tilth.
+          Drench the bed with Fytolon/Dithane M-45 @ 2-2.5 g/lit of water. Draw
+          the lines 10 to 15cm apart throughout the length of the seedbed. Sow the
+          seeds thinly spaced in lines, press gently, cover with fine sand and
+          then cover the bed with straw. Irrigate with rose can. Irrigate the
+          seedbed twice a day till the seeds germinate. Remove the straw after the
+          seeds germinate. Apply a little Thimet at 4-5 leaf stage. Spray the
+          seedlings with Metasystox/Thiodan @ 2-2.5 ml/lit water and Dithane M-45
+          @ 2-2.5 g/lit water.</p>
+        </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="Fertilizers"></a>Fertilizers</h2>
+          <p>As the fruit production and quality depends upon
+          nutrient availability and fertilizer application so balance fertilizer
+          are applied as per requirement. The nitrogen in adequate quantity
+          increases fruit quality, fruit size, color and taste. It also helps in
+          increasing desirable acidic flavor. Adequate amount of potassium is also
+          required for growth, yield and quality. Mono Ammonium Phosphate (MAP)
+          may be used as a starter fertilizer to supply adequate phosphorus during
+          germination and seedling stages. Calcium availability is also very
+          important to control soil pH and nutrient availability. Sandy soils will
+          require a higher rate of fertilizer, and more frequent applications of
+          these fertilizers due to increased leaching of essential nutrients. The
+          seedlings are sprayed with starter solution of micronutrient. Before
+          planting farm yard manure @ 50 ton per hectares should be incorporated.
+          Normally tomato crop requires 120kg Nitrogen (N), 50kg Phosphorus (P<sub>2</sub>O<sub>5</sub>),
+          and 50kg Potash (K<sub>2</sub>O). Nitrogen should be given in split
+          doses. Half nitrogen and full P<sub>2</sub>O<sub>5</sub> is given at the
+          time of transplanting and remaining nitrogen is given after 30 days and
+          60 days of transplanting.</p>
+          <p>Soil and tissue analyses should be taken throughout
+          the growing and production season to insure essential nutrients are in
+          their proper amounts and ratios. Tissue analysis of a nutritionally
+          sufficient plant will show the following nutrient status:</p>
+          <table Class="table table-bordered">
+            <tr>
+              <td></td>
+              <td>Nitrogen</td>
+              <td>Phosphorus</td>
+              <td>Potassium</td>
+              <td>Calcium</td>
+              <td>Magnesium</td>
+              <td>Sulphur</td>
+            </tr>
+            <tr>
+              <td>%</td>
+              <td>4.0-5.6</td>
+              <td>0.30-0.60</td>
+              <td>3.0-4.5</td>
+              <td>1.25-3.2</td>
+              <td>0.4-0.65</td>
+              <td>0.65-1.4</td>
+            </tr>
+              <td ROWSPAN="3">&nbsp;</td>
+            <tr>
+              <td>ppm</td>
+              <td>Manganese</td>
+              <td>Iron</td>
+              <td>Boron</td>
+              <td>Copper</td>
+              <td>Zinc</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>30-400</td>
+              <td>30-300</td>
+              <td>20-60</td>
+              <td>5-15</td>
+              <td>30-90</td>
+            </tr>
+          </table>
+          <p>In the present situation it has been realized that
+          the use of inorganic fertilizers should be integrated with renewable and
+          environmental friendly organic fertilizers, crop residues and green
+          manures.</p>
+        </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="Irrigation"></a> Irrigation</h2>
+          <p style="text-align:center;"><img border="0" src="https://www.indiaagronet.com/tomato/resources/images/dripirrigationsystem.gif" width="45%" height="317"></p>
+          <p>Tomatoes have been observed to withdraw water from
+          depths up to 13 feet in a well structured soil. Tomato plants require
+          adequate moisture throughout their growth period. First irrigation is
+          required soon after seedlings are transplanted. Frequent water is
+          necessary in root zone when plants are small. In summer irrigation at
+          intervals of 3-4 days and 10-15 days water is necessary to maintain wet
+          soil. Erratic moisture conditions can cause radial and concentric
+          cracking on fruit.</p>
+        </div>
+        <div class="row space-clear">
+          <h2><a name="Implements"></a>Implements for Interculturing Operations</h2>
+          <div>
+            <table class="table table-bordered">
+              <tr>
+                <td width="33%" align="center"><img border="0" src="https://www.indiaagronet.com/tomato/resources/images/weedinghook.gif" width="90%" height="106"></td>
+                <td width="33%" align="center"><img border="0" src="https://www.indiaagronet.com/tomato/resources/images/Ghamela%20&%20Spade.gif" width="100%" height="163"></td>
+                <td width="34%" align="center"><img border="0" src="https://www.indiaagronet.com/tomato/resources/images/toothhoe.gif" width="90%" height="79"></td>
+              </tr>
+            </table>
+          </div>
+          <p>Generally interculturing operations like hand hoeing,
+          weeding, mulching, staking is followed in tomato. Implements like
+          hand-hoe, khurpi, land leveller etc. are used.</p>
+        </div>
+        <div class="row space-clear container-fluid">
+          <h2><a name="Inter"></a> Inter Culture Operations</h2>
+          <p>Pre-emergence applications of herbicides like
+          metribuzin at 0.35 kg/ha, fluchloralin 1.25 kg/ha has been found
+          effective to increase the tomato yield significantly in comparison to
+          traditional method of hand weeding. Also plastic mulching (black or
+          transparent) can be used to control the weeds. Weeds can be controlled
+          successfully by mulching plus use of herbicides (pendimethalin @ 0.75kg
+          ai/ha or oxyflorophen @ 0.12kg ai/ha).</p>
+          <p>Spraying of PCPA at 50 ppm, IAA at 50 ppm or borax 1%
+          gave the fruit set in summer season. PCPA spray at flowering stage was
+          observed to create favorable conditions for fruit set in low as well as
+          high temperatures.</p>
+        </div>
+        
+        <div class="row space-clear container-fluid">
+          <h2><a name="Staking"></a> Staking of Tomato</h2>
+          <p style="text-align:center">
+          <img border="0" src="https://www.indiaagronet.com/tomato/resources/images/stackingtomato.gif" width="45%" height="279">
+          <p>Due to staking there is better growth of tomato plant
+          and branches, increased fruit bearing, and improved quality of fruits.
+          Cultural operations like fruit picking, spraying, weeding, fertilisers
+          application and earthing up etc. for staking can be done by two methods.
+          In first type, at each plant sticks of 1.5-2meter length and 2.5cm
+          thickness are placed and plant of tomato is staked as it is growing. In
+          second type, a network of wire and bamboo is form and with the help of
+          sutali (small rope) branches of plant is spread. Secondary branches
+          should be cut upto 30 cm and from 30 cm height keeping two main branches
+          plant should be allow to spread on this network.&nbsp;</p>
+        </div>
+        
+        <div class="row space-clear container-fluid">
+        <h2><a name="Intercropping"></a>Intercropping</h2>
+        <p align="center">
+        <img border="0" src="https://www.indiaagronet.com/tomato/resources/images/intercropping.gif" width="50%" height="233">
+        <p>Tomato is well fitted in different cropping systems
+        of cereals, grains, pulses and oilseeds. Cropping systems rice-tomato,
+        rice-maize, okra-potato-tomato, tomato-onion are popular in various
+        parts of India. Cauliflower- okra –sunflower –cabbage –tomato –maize
+        -tomato-watermelon and paddy-peas-tomato have been proved economical
+        systems. Palak or radish can be grown as inter-crop in tomato
+        successfully.</p></div>
+
+    </div>
+<!--   </td>
+</tr> -->
+</div>
+
+{% endif %}
+
+
+
+{% if crop == "GARLIC" %}
+ 
+<div class="container-fluid">
+<center>
+    <img src="{% static 'predict/garlic.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+</center>
+<div class="container-fluid well">
+
+<table border="0" cellspacing="0" width="100%" cellpadding="8">
+  <tr>
+    <td width="82%" rowspan="2" valign="top">
+      <div class="content">
+        <h1><a name="top"></a>Spices &amp; Condiments: Garlic &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h1><br>
+        <p align="justify"><font face="sans serif, verdana, arial" size="2"><b>Introduction </b></font></p>
+        <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Garlic, a native of
+        Southern Europe is one of the important bulb crops grown and used as a spice or condiment
+        throughout India. Gujarat followed by Orissa are the largest producing states. It
+        possesses a high natritive value, its preparations are administered as a cure against
+        stomach disease, sore eyes and ear ache. It is commonly used in the preparation of various
+        dishes. Allicin, the principle amoebic dysentry and is also having many other medicinal
+        properties.</font></p>
+        <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Climate and Soil</font></b></p>
+        <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">It is grown under a
+        wide range of climatic conditions. However, it cannot stand too hot or too cold weather.
+        It prefers moderate temperature in summer as well as in winter. Short days are very
+        favourable for the formation of bulbs. It can be grown well at elevations of 1000 to 1300
+        m above MSL. Garlic requires well drained loamy soils, rich in humus, with fairly good
+        content of potash. The crop raised on sandy or loose soil does soils, the bulbs produced
+        are deformed and during harvesting, many bulbs are broken and bruised and so they do not
+        keep well in storage.</font></p>
+        <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Varieties </font></b></p>
+        <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">There is no distinct
+        variety of garlic. Local varieties are either white in colour and have fairly big bulbs
+        with a better keeping quality and a higher yield or red in colour with pungency. Tamil
+        Nadu Agricultural University has recently released one improved variety by clonal
+        selection viz., Ooty 1 Garlic. It is a high yielder (17t/ha) with a shorter duration of
+        120 to 130 days. The bulbs are big sized weighing 20 to 30g and each bulb has 22 to 25
+        cloves, which are dull white in colour.</font></p>
+        <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Propagation </font></b></p>
+        <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Garlic is propagated
+        by cloves. All the cloves are planted except the long slender once in the centre of the
+        bulb. Bulbs with side growth should be discarded. Healthy cloves or bulbils free from
+        disease and injuries should be used for sowing and about 150 to 200 kg cloves are required
+        to plant one hectare. They are sown by dibbling or furrow planting. </font></p>
+      <ul>
+        <b>
+        <li><p align="justify"></b><font face="sans serif, verdana, arial" size="2">Dibbling: The
+          field is divided into small plots convenient for irrigation Cloves may be dibbled 5 to
+          7.5cm deep, keeping their growing ends upwards. They are laced 7.5cm apart from each other
+          in rows of 15cm apart and then they are covered with loose soil. June-July and
+          October-November are the normal planting seasons for garlic.</font></p>
+        </li>
+      </ul>
+      <ul>
+        <li><p align="justify"><font face="sans serif, verdana, arial" size="2">Furrow planting: The
+          furrows are made 15 cm with hand how or a cotton drill. In these furrows, cloves are
+          dropped by hand 7.5 to 10 cm apart. They are covered lightly with loose soil and a light
+          irrigation is given. </font></p>
+        </li>
+      </ul>
+      <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Manures and
+      fertilisers</font></b></p>
+      <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">About 25 tonnes of
+      farm yard manure is applied as a basal dose along with 60kg Nitrogen and 50 kg in each of
+      Phosphorus and Potash. Forty five days after planting 60kg Nitrogen is applied again as
+      top dressing.</font></p>
+      <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Irrigation</b> </font></p>
+      <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">First irrigation is
+      given after sowing and then field is irrigated every 10 to 15 days depending upon the soil
+      moisture availability. There should not be any scarcity of moisture in the growing season,
+      otherwise, the development of the bulbs will be affected. The last irrigation should be
+      given 2 to 3 before harvesting for making it easy without damaging the bulbs. In South
+      India hills, they are mostly grown as a rainfed crop.</font></p>
+      <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Intercultural
+      operations</b> </font></p>
+      <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">First interculture is
+      given with hand hoe one month after sowing. Second weeding is given one month after the
+      first (about two and half months from sowing) loosens the soil and helps in the setting of
+      bigger and well filled bulbs. The crop should not be weeding out or hoed at a later stage
+      because this may damage the stem and impair the keeping quality. </font></p>
+      <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Harvesting </font></b></p>
+      <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Garlic is a crop of 4
+      ½ to 5 months duration. When the leaves start turning yellowish or brownish and show
+      signs of drying up, the crop is ready for harvest. The plants are then pulled out or
+      uprooted with a country plough and are tied into small bundles which are then kept in the
+      field or in the shade or 2-3 days for curing and drying so that the bulbs become hard and
+      their keeping quality is improved. The bulbs may be stored by hanging them on bamboo
+      sticks or by keeping them on dry sand on the market, the dried stalks are removed and
+      bulbs are cleaned. Well cured garlic bulbs can be kept for 1 to 1 ½ months in an ordinary
+      well ventilated room. If dust smoke is given to it, the bulbs can be stored for 8 to 10
+      months. They can also be stored at 32<sup>0</sup>F with 60% R.H. Average yield level is 6
+      to 8 t/ha.</font></p>
+      <b><p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Plant protection</font></b></p>
+      <p ALIGN="JUSTIFY"><font face="sans serif, verdana, arial" size="2">Thrips cause withering
+      of the leaves. Application of methyl demeton 25EC 1 ml/litre will check the incidence.
+      Leaf spot is the most important disease. Spraying Dithane M-45 at fortnightly intervals at
+      2.5g in one litre of water is recommended.</font></p></div></td>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>  
+{% endif%}
+
+{% if crop == "ONION" %}
+  <div class="container-fluid">
+    <center>
+      <img src="{% static 'predict/onion.jpeg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+    </center>
+    <div class="container-fluid well">
+      <p>
+        <h1><strong>Onions</strong> &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h1>
+        Onion are a cold-season crop, easy to grow because of their hardiness. We plant onions early in the spring
+        and harvest in the fall after their tops begin to turn yellow and fall over.</p>
+      <h3 class="pane-title">Planting</h3>
+
+      <div class="field field-name-field-planting field-type-text-long field-label-hidden view-mode-_custom_display">
+        <div class="field-items">
+          <div class="field-item even">
+            <ul>
+              <li>Plant onions as soon as the ground can be worked in the spring, usually late March or April. Make sure temperature
+                doesn’t go below 20 degrees&nbsp;F.</li>
+              <li>Select a location with full Sun where your onions won’t be shaded by other&nbsp;plants.</li>
+              <li>Soil needs to be well-drained, loose, and rich in nitrogen; compact soil affects bulb&nbsp;development.</li>
+              <li>Till in aged manure or fertilizer the fall before planting. Onion plants&nbsp;are heavy feeders and need constant
+                nourishment to produce big&nbsp;bulbs.</li>
+              <li>At planting time, you can mix in some nitrogen fertilizer, too, and side dress every few weeks until the bulbing
+                process&nbsp;begins.
+              </li>
+              <li>Seeding? Onion seeds are short-lived. If planting seeds indoors, start with fresh seeds each year. Start seeds
+                indoors about 6 weeks before&nbsp;transplanting.</li>
+              <li>For sets or transplants, plant the smaller sets 1 inch deep, with 4 to 5 inches between each plant and in rows
+                12 to 18 inches&nbsp;apart.</li>
+              <li>Think of onions as a leaf crop, not a root crop. When planting onion sets, don’t bury them more than one inch
+                under the soil; if more than the bottom third of the bulb is underground, bulb growth can be&nbsp;restricted.</li>
+              <li>Practice crop rotation with&nbsp;onions.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel-separator"></div>
+
+      <h3 class="pane-title">Care</h3>
+
+      <div class="field field-name-field-care field-type-text-long field-label-hidden view-mode-_custom_display">
+        <div class="field-items">
+          <div class="field-item even">
+            <ul>
+              <li>Fertilize every few weeks with nitrogen to get big bulbs. Cease fertilizing when the onions push the soil away
+                and the bulbing process has started. Do not put the soil back around the onions; the bulb needs to emerge
+                above the&nbsp;soil.</li>
+              <li>Generally, onion plants&nbsp;do not need consistent watering if mulch is used. About one inch of water per
+                week (including rain water) is sufficient. If you want sweeter onions, water&nbsp;more.</li>
+              <li>Onions will look healthy even if they are bone dry, be sure to water during drought&nbsp;conditions.</li>
+              <li>Make sure soil is well-drained. Mulch will help retain moisture and stifle&nbsp;weeds.</li>
+              <li>Cut or pull any onions that send up flower stalks; this means that the onions have “bolted” and are&nbsp;done.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="panel-separator"></div>
+
+      <h3 class="pane-title">Pests/Diseases</h3>
+
+      <div class="field field-name-field-pests field-type-text-long field-label-hidden view-mode-_custom_display">
+        <div class="field-items">
+          <div class="field-item even">
+            <ul>
+              <li>
+                <strong>
+                  <a href="http://www.almanac.com/pest/thrips">Thrips</a>
+                </strong>: To control thrips—tiny insects about as fat as a sewing needle—take a dark piece of paper into the garden
+                and knock the onion tops against it; if thrips are present, you will spot their tan-colored bodies on the
+                paper. A couple of treatments with insecticidal soap kills them. Follow the package directions. Spray the
+                plants twice, three days apart, and the thrips should&nbsp;disappear.</li>
+              <li>
+                <strong>Onion Maggots</strong>: Cover your emerging onion crop with a fine mesh netting. Seal it by mounding soil
+                around the edges. The onion maggot likes to lay its eggs at the base of plants, so the netting should prevent
+                that. You should also keep mulch away because the insects like decaying organic matter, and make sure you
+                completely harvest your onions as the season progresses. Onion maggots are usually a problem in very rainy
+                periods, so these precautions may be unnecessary if you have a dry&nbsp;season.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="panel-separator"></div>
+
+      <h3 class="pane-title">Harvest/Storage</h3>
+
+      <div class="field field-name-field-harvest field-type-text-long field-label-hidden view-mode-_custom_display">
+        <div class="field-items">
+          <div class="field-item even">
+            <ul>
+              <li>When onions start to mature, the tops become yellow and begin to fall over. At that point, bend the tops down
+                or even stomp on them to speed the final ripening&nbsp;process.</li>
+              <li>Loosen the soil to encourage drying, and after a few days turn them up and let them cure on dry ground. Always
+                handle them very carefully—the slightest bruise will encourage rot to set&nbsp;in.</li>
+              <li>When tops are brown, pull the&nbsp;onions.</li>
+              <li>Be sure to harvest in late summer, before cool weather. Mature onions may spoil in fall&nbsp;weather.</li>
+              <li>Allow onions to dry for several weeks before you store them in a root cellar or any other storage area. Spread
+                them out on an open screen off the ground to&nbsp;dry.</li>
+              <li>Store at 40 to 50 degrees F (4 to 10 degrees C) in braids or with the stems broken&nbsp;off.</li>
+              <li>Mature, dry-skinned bulbs like it cool and&nbsp;dry.</li>
+              <li>Don’t store onions with
+                <a href="http://www.almanac.com/plant/apples">apples</a>&nbsp;or
+                <a href="https://www.almanac.com/plant/pears">pears</a>, as the ethylene gas produced by the fruits will interrupt the onions’ dormancy. Onions may also
+                spoil the flavor of these&nbsp;fruits (as well as&nbsp;
+                <a href="https://www.almanac.com/plant/potatoes">potatoes</a>).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="panel-separator"></div>
+
+      <h3 class="pane-title"> Recommended Varieties</h3>
+
+      <div class="field field-name-field--recommended field-type-text-long field-label-hidden view-mode-_custom_display">
+        <div class="field-items">
+          <div class="field-item even">
+            <p>Onion varieties are classified into two categories: Long-day, best in the North, and short-day, best for the&nbsp;South.</p>
+            <ul>
+              <li>‘Yellow Sweet Spanish’: long-day hybrid, large round shape,&nbsp;yellow-white.</li>
+              <li>‘Stuttgarter’: short-day variety sold in sets, early maturity with slightly flat shape,&nbsp;yellow.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% endif %}
+
+
+{% if crop == "ORANGE" %}
+<center>
+      <img src="{% static 'predict/orange.jpeg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+    </center>
+ <div class="well container-fluid">
+ <h2><strong>Orange </strong>&nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h2>
+ <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_intro"></a>
+                        <font color="#008000">Introduction:</font></font></p></b>
+            
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p align="JUSTIFY">
+                <font face="Verdana" size="2">Orange (
+                    <i>Citrus sinensis L) </i>is grown under both subtropical and tropical conditions. It is grown in almost
+                    all the sates of India.</font>
+        </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_cli"></a>
+                        <font color="#008000">Climate and soils:</font>
+                    </font>
+            </p></b>
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP">
+            <p align="JUSTIFY"> </p>
+            <p align="JUSTIFY"> </p></td>
+        <td width="84%" valign="TOP">
+            <p align="JUSTIFY">
+                <font face="Verdana" size="2">Dry and arid conditions, coupled with distinct summer and winter having low rainfall, are most favourable
+                    to the growth of the sweet orange. Atmospheric humidity exerts a great influence.
+                    <br> The sweet orange can be grown on a wide range of soils, from heavy clays to very light sands, with pH
+                    ranging from 6.0-8.0. The tree is sensitive to high concentrations of salts and cannot stand water logging.
+                    </font>
+            </p>
+            <p align="JUSTIFY"> </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_variety"></a>
+                        <font color="#008000">Varieties</font></font></p></b>::
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <font face="Verdana" size="2">Blood Red, Pineapple, Hamlin, Jaffa and Valencia Late, Sathgudi, Batavian orange. </font>
+        </td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_land"></a>
+            </font></p></b>
+            <strong>
+                <font color="#008000">Propagation</font>
+            </strong>
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p align="JUSTIFY">
+                <font face="Verdana" size="2">Usually propagated by budding. The most suitable rootstock is Jamberi or jatti khatti. For Pineapple, Hamlin,
+                    Jaffa and Valencia Late varieties, kharna khatta also provide a suitable root stock. The trees are planted
+                    6-7.5 metres apart each way in January or August-September in the north and in July-August in the south.
+                    The bud union should kept at least 15 cm above the ground while planting.
+                    <br>
+                </font>
+        </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2" color="#008000">
+                        <a name="0.1_Pruning">Pruning</a>
+                    </font>
+            </p></b>
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p align="JUSTIFY">
+                <font face="Verdana" size="2">All branches that start within a few centimeters of the union are removed, leaving about half a metre of
+                    clean straight stem with a few well placed branches. All unwanted branches are removed once a month during
+                    the first yea r after planting, and once in two to three months in subsequent years. The bearing trees
+                    require little or no pruning.
+                    <br>
+                </font>
+        </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_manu"></a>
+                        <font color="#008000">Fertilizer</font></font></p></b> :
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">Farmyard manure, 20-25 kg per tree, is applied at planting, together with about half a kilo of ammonium sulphate.
+                    A mixture supplying 0.09 kg each of nitrogen, phosphorus and potash per tree may be applied in the first
+                    year after planting, and the dose is gradually increased to 0.45 kg of each nitrogen and phosphorus and
+                    to 0.90 kg of potash per tree in the seventh year and kept constant thereafter. The dose of farmyard
+                    manure is increased to 50 kg per tree.</font>
+        </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2" color="#008000">
+                        <a name="0.1_inter">Irrigation</a>:</font>
+            </p></b>
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">After the first heavy irrigation given soon after planting a second light watering follows in four to five
+                    days Under well irrigation, water is given after every eight days in hot months and about 12-15 days
+                    in cold months. Where irrigation is from canals, the usual interval is about 14 days. A light soil requires
+                    irrigation more often than a heavy soil. When the trees are young, irrigation water is applied in basins
+                    of about one-metre radius. The basins are enlarged as the trees advance in age.</font>
+            </p>
+            <p style="text-align:justify"> </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_Root exposure"></a>
+                        <font color="#008000">Root exposure:</font>
+                    </font>
+            </p></b>
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">Root exposure is given to the trees to bring them into flowering at a particular time of the year. Water
+                    is withheld for about two months in advance of the normal flowering season, and after about a month,
+                    the roots are exposed by removing about 10cm of the soil in the case of light soils and about 20cm in
+                    the case of heavy soils. After about 10 days, the soil is returned mixed with manure and a light irrigation
+                    is given. After four of five days, a more copious watering is given, followed by 10 days later by the
+                    full dose of water. In the case of light soils, the withholding of water without root exposure is sufficient
+                    to check vegetative growth and force blossoming.</font>
+            </p>
+            <p style="text-align:justify"> </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_plant"></a>
+                        <font color="#008000">Plant protection</font></font></p></b>: 
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">
+                    <span style="color:green">Pests</span>
+                </font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">
+                    <span style="color:green">Lemon butterfly</span>
+                    <br> Feeds on leaves and defoliate trees; serious in nurseries.
+                    <br>
+                    <span style="color:green">Controls
+                        <br>
+                    </span>Hand pick caterpillars and pupae, remove alternative host plants; spray 0.04% Monocrotophos or
+                    Phosphamidon</font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">
+                    <span style="color:green">Citrus feaf miner
+                        <br>
+                    </span>Caterpillars feed inside the leaf tissues, forming zigzag shining streak like galleries on leaves;
+                    the infested leaves dry up
+                    <br>
+                    <span style="color:green">Control
+                        <br>
+                    </span>Prune heavily affected parts during winter and burn them; spray with neem cake suspension (300
+                    g in 5 litres of water) or 0.04% Phosphamidon or Monocroptophos.</font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">
+                    <span style="color:green">Fruit sucking moth
+                        <br>
+                    </span>Puncture the fruits and suck the juice fruits rot and ultimately fall down
+                    <br>
+                    <span style="color:green">Control
+                        <br>
+                    </span>Destroy wild plants on which moths breed; bag individual fruits; poison-baiting with 20g Malathion
+                    50% W.P. or 50ml Diazinon+200g
+                    <i>gur</i>
+                    or molasses in 2 litres of water.</font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">
+                    <span style="color:green">Disease</span>
+                </font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">Brown rot or gummosis
+                    <span style="color:green">
+                        <br>
+                    </span>The bark is invaded and ruptured lengthwise, and large quantities of gum are exuded; the bark
+                    is ultimately killed.
+                    <span style="color:windowtext">
+                        <br>
+                    </span>
+                    <span style="color:green">Control
+                        <br>
+                    </span>Apply Bordeaux paint to the trunk; dust the pits at the planting time with a mixture of zinc sulphate,
+                    copper sulphate and lime (5:1:4); scrape the affected bark and apply a wash of zinc copper lime mixture.</font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">Damping off
+                    <span style="color:green">
+                        <br>
+                    </span>Seedlings rot at the soil level, topple over and die
+                    <span style="color:windowtext">
+                        <br>
+                    </span>
+                    <span style="color:green">Control
+                        <br>
+                    </span>Adopt rotation</font>
+            </p>
+            <p style="text-align:justify">
+                <font face="Verdana" size="2">Fruit fall
+                    <span style="color:green">
+                        <br>
+                    </span>Fruits turn yellow prematurely and fall
+                    <span style="color:windowtext">
+                        <br>
+                    </span>
+                    <span style="color:green">Control
+                        <br>
+                    </span>Spray 1-% Bordeaux mixture; apply nitrogenous manures.</font>
+            </p>
+            <p style="text-align:justify"> </p></td>
+    </tr>
+    <tr>
+        <td valign="TOP" colspan="2">
+            <b>
+                <p align="JUSTIFY">
+                    <font face="Verdana" size="2">
+                        <a name="0.1_harvest"></a>
+                        <font color="#008000">Harvesting and Storage</font></font></p></b>:
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="16%" valign="TOP"></td>
+        <td width="84%" valign="TOP">
+            <p align="JUSTIFY">
+                <font face="Verdana" size="2">Trees begin to bear fruits from the fourth year onwards, but normal crops are borne from the seventh year.
+                    The main harvesting season in the north is December to February, whereas in the south, it is October
+                    to March. Picking may be done any time during the day, taking care that the stem is cut close to the
+                    fruit without damaging the rind. The fruits are washed, dried and graded for size and packed into wooden
+                    cases for disposal.</font>
+        </p></td>
+    </tr>
+</table>
+</div>
+  {% endif %}
+
+  {% if crop == "PEAS" %}
+
+  <center>
+    <img src="{% static 'predict/peas.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+  </center>
+  <div class="container-fluid well">
+    <p>
+      <h2><strong>Peas</strong>&nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h2> 
+      Peas are one of the first crops we plant.&nbsp;Plant as soon as the ground can be worked—even if snow falls
+      after you plant them!&nbsp; Here’s our guide on how to&nbsp;plant, grow, and harvest&nbsp;peas.</p>
+
+    <div class="block-inner clearfix">
+
+
+
+      <div class="block-content">
+        <div class="field field-name-field-body field-type-text-long field-label-hidden view-mode-_custom_display">
+          <div class="field-items">
+            <div class="field-item even" property="schema:articleBody">
+              <div id="first-para-wrapper">
+                <p>
+                  <strong>Peas</strong> are one of the first crops we plant.&nbsp;Plant as soon as the ground can be worked—even
+                  if snow falls after you plant them!&nbsp; Here’s our guide on how to&nbsp;plant, grow, and harvest&nbsp;peas.</p>
+              </div>
+              <!-- Ad: Node Injected 336x280 Top -->
+              <div id="dfp-ad-107802" class="sitewide-rectangle-ad" data-google-query-id="COWU4rXz-tkCFUoKjgodGPgC3Q">
+                <script type="text/javascript">
+                  ybotq.push(function () {
+                    googletag.cmd.push(function () {
+                      googletag.display('dfp-ad-107802');
+                    });
+                  });
+                </script>
+                <div id="google_ads_iframe_/10412223/336x280_TOP_Content_0__container__" style="border: 0pt none;">
+                  <iframe id="google_ads_iframe_/10412223/336x280_TOP_Content_0" title="3rd party ad content" name="google_ads_iframe_/10412223/336x280_TOP_Content_0"
+                    scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc=""
+                    width="336" height="280" frameborder="0"></iframe>
+                </div>
+              </div>
+              <p>There are three varieties of peas that will&nbsp;suit your garden and cooking&nbsp;needs:&nbsp;</p>
+              <ul>
+                <li>
+                  <em>Pisum savitum</em>, which includes both types of garden peas:&nbsp;
+                  <strong>sweet peas</strong> (inedible pods) and
+                  <strong>snow peas</strong> (edible flat pods with small peas&nbsp;inside).</li>
+                <li>
+                  <em>Pisum macrocarpon</em>,
+                  <strong>snap peas</strong> (edible pods with full-size&nbsp;peas).</li>
+              </ul>
+              <p>Pea plants are easy to grow, but have a very limited growing season.&nbsp;Furthermore, peas&nbsp;do not stay
+                fresh long after harvest, so enjoy them while you&nbsp;can!</p>
+            </div>
+          </div>
+        </div>
+
+
+
+    </div>
+  </div>
+  <div class="panel-separator"></div>
+
+  <h3 class="pane-title">Planting</h3>
+
+  <div class="field field-name-field-planting field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <ul>
+          <li>To get the best head start, turn over your pea planting beds in the fall, add manure to the soil, and mulch&nbsp;well.</li>
+          <li>As with other legumes, pea roots will fix nitrogen in the soil, making it available for other&nbsp;plants.</li>
+          <li>Peas will appreciate a good sprinkling of wood ashes to the soil before planting. Learn more about
+            <a href="http://www.almanac.com/blog/gardening/garden-journal/organic-soil-amendments-explained">soil amendments</a> and
+            <a href="http://www.almanac.com/content/preparing-soil-planting">preparing soil for planting</a>.</li>
+          <li>Sow seeds outdoors 4 to 6 weeks before last
+            <a href="http://www.almanac.com/gardening/frostdates">spring frost</a>, when soil temperatures reach 45 degrees F. Here are some more&nbsp;tips on&nbsp;
+            <a href="http://www.almanac.com/blog/gardening/gardening/when-plant-peas">when to start planting peas</a>.</li>
+          <li>Plant 1 inch deep (deeper if soil is dry) and 2 inches&nbsp;apart.</li>
+          <li>Get them in the ground while the soil is still cool, but do not have them sit too long in wet soil. It’s a delicate
+            balance of proper timing and weather conditions. For soil that stays wet longer, invest in
+            <a href="http://www.almanac.com/content/how-build-raised-garden-bed">raised garden beds</a>.</li>
+          <li>A blanket of snow won’t hurt emerging pea plants, but several days with temperatures in the teens could. Be prepared
+            to plant&nbsp;again.</li>
+          <li>Peas are best grown in temperatures below 70 degrees&nbsp;F.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel-separator"></div>
+
+  <h3 class="pane-title">Care</h3>
+
+  <div class="field field-name-field-care field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <ul>
+          <li>Make sure that you have well-drained, humus-rich&nbsp;soil.</li>
+          <li>Poke in any seeds that wash out. (A chopstick is an ideal tool for&nbsp;this.)</li>
+          <li>Be sure, too, that you don’t fertilize the soil too much. Peas are especially sensitive to too much nitrogen, but
+            they may like a little bonemeal, for the phosphorus&nbsp;content.</li>
+          <li>Though adding compost or manure to the soil won’t hurt, peas don’t need heavy doses of fertilizer. They like phosphorus
+            and&nbsp;potassium.
+          </li>
+          <li>Water sparsely unless the plants are wilting. Do not let plants dry out, or no pods will be&nbsp;produced.</li>
+          <li>For tall and vine varieties, establish
+            <a href="http://www.almanac.com/video/how-build-trellis-and-supports-climbing-vegetables">poles or a trellis</a> at time of planting. Look at
+            <a href="http://www.almanac.com/video/building-pea-and-bean-supports-garden">this video</a> to find out&nbsp;how!</li>
+          <li>Do not hoe around plants to avoid disturbing fragile&nbsp;roots.</li>
+          <li>It’s best to rotate pea crops every year or two to avoid a buildup of soil-borne&nbsp;diseases.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel-separator"></div>
+
+  <h3 class="pane-title">Pests/Diseases</h3>
+
+  <div class="field field-name-field-pests field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <ul>
+          <li>
+            <a href="/content/aphids">Aphids</a>
+          </li>
+          <li>
+            <a href="/content/mexican-bean-beetles">Mexican Bean&nbsp;Beetles</a>
+          </li>
+          <li>
+            <a href="http://www.almanac.com/pest/woodchucks-or-groundhogs">Woodchucks</a>
+          </li>
+          <li>Fusarium&nbsp;Wilt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel-separator"></div>
+
+  <h3 class="pane-title">Harvest/Storage</h3>
+
+  <div class="field field-name-field-harvest field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <ul>
+          <li>Keep your peas well picked to encourage more pods to&nbsp;develop.</li>
+          <li>Pick peas in the morning after the dew has dried. They are crispiest&nbsp;then.</li>
+          <li>Always use two hands when you pick peas. Secure the vine with one hand and pull the peas off with your other&nbsp;hand.</li>
+          <li>Peas can be frozen or kept in the refrigerator for about 5 days. Place in paper bags, then wrap in&nbsp;plastic.</li>
+          <li>If you missed your peas’ peak period, you can still pick, dry, and shell them for use in winter&nbsp;soups.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel-separator"></div>
+
+  <h3 class="pane-title"> Recommended Varieties</h3>
+
+  <div class="field field-name-field--recommended field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <ul>
+          <li>‘Snowbird’ (snow pea), resistant to fusarium&nbsp;wilt</li>
+          <li>‘Sugar Ann’ (snap pea), early variety, short&nbsp;vine</li>
+          <li>‘Green Arrow’ (garden pea), mid-season variety, high yields, resistant to fusarium&nbsp;wilt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  {% endif %} 
+  {% if crop == "POTATO" %}
+  <center>
+    <img src="{% static 'predict/potato.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+  </center>
+  <div class="well container-fluid">
+  <h2>Potato &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h2>
+  <div>
+    The taste and the texture of home-grown potatoes
+    <strong> </strong>are far superior to those of store-bought spuds, especially the early varieties. They need a cool climate, and
+    also need to be watched to prevent sunburn. In warmer climate zones, potatoes can be grown as a winter&nbsp;crop.</p>
+  </div>
+  <div class="panel-separator"></div>
+  <h3 class="pane-title">Planting</h3>
+
+  <div class="field field-name-field-planting field-type-text-long field-label-hidden view-mode-_custom_display">
+    <div class="field-items">
+      <div class="field-item even">
+        <h4>
+          <strong>How to Plant&nbsp;Potatoes</strong>
+        </h4>
+        <ul>
+          <li>Plant “seed potatoes” (pieces of whole potato or a small whole potato, with at least 2 eyes per piece) 0-2 weeks
+            after last spring frost. (
+            <a href="http://www.almanac.com/gardening/frostdates">See local frost dates</a>.)</li>
+          <li>You may start planting earlier, as soon as soil can be worked, but be aware that some crops may&nbsp;be ruined
+            by a&nbsp;frost.</li>
+          <li>If you are cutting up potato pieces for planting, do so&nbsp;1-2 days ahead of time. This will give them the chance
+            to “heal” and&nbsp;form a protective layer, both for moisture retention and rot&nbsp;resistance.</li>
+          <li>Spread and mix in rotted manure or organic
+            <a href="https://www.almanac.com/content/how-compost-hot-and-cold-methods">compost</a> in the bottom of the trench before planting. (Learn more about
+            <a href="http://www.almanac.com/blog/gardening/garden-journal/organic-soil-amendments-explained">soil amendments</a> and
+            <a href="http://www.almanac.com/content/preparing-soil-planting">preparing soil for planting</a>.)</li>
+          <li>Plant seed potatoes one foot apart in a 4-inch deep trench, eye side&nbsp;up.</li>
+          <li>Practice yearly
+            <a href="https://www.almanac.com/video/how-rotate-your-vegetable-crops">crop rotation</a>.</li>
+          <li>See our video on how to
+            <a href="/video/growing-potatoes-trash-can-video ">grow potatoes in a trash can</a>, the easiest-ever container&nbsp;garden!</li>
+          <li>Before planning your garden, take a look at our
+            <a href="http://www.almanac.com/content/companion-planting-chart-plant-list-10-top-vegetables">plant companions chart</a> to see which veggies are most compatible with&nbsp;potatoes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  {% endif %} {% if crop == "RICE" %}
+  <center>
+    <img src="{% static 'predict/rice.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+  </center>
+  <div class="container-fluid well">
+    <h4>1.3 Plant description</h4>
+
+    <div>Rice plant is an annual warm-season grass (monocot plant) with round culms, flat leaves and terminal panicles.</div>
+    <div>&nbsp;</div>
+    <div>Rice is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a
+      ratoon crop up to 20 years. The rice plant can grow to 1–1.8 m tall, occasionally more, depending on the variety and
+      soil fertility. The grass has long, slender leaves 50–100&nbsp;cm long and 2–2.5&nbsp;cm broad. The small wind-pollinated
+      flowers are produced in a branched arching to pendulous inflorescence 30–50&nbsp;cm long. The edible seed is a grain
+      (caryopsis) 5–12&nbsp;mm long and 2–3&nbsp;mm thick.</div>
+    <div>&nbsp;</div>
+    <div>
+      <strong>The grain</strong>
+      <br>The single seed is fused with the wall, which is the pericarp of the ripened ovary forming the grain. Each rice panicle
+      (which is a determinate inflorescence on the terminal shoot), when ripened, contains on average 80-120 grains, depending
+      on varietal characteristics, environmental conditions and the level of crop management. The floral organs are modified
+      shoots consisting of a panicle, on which are arranged a number of spikelets. Each spikelet bears a floret which, when
+      fertilized, develops into a grain.</div>
+    <div>&nbsp;</div>
+    <div>
+      <strong>Rice grain structure</strong>
+      <br>A kernel of rice consists of a hull and a bran coat, both of which are removed on polishing "white" rice. In general,
+      each rice kernel is composed of the following layers:</div>
+    <ul>
+      <li>Rice shell, hull or husk: encloses the bran coat, the embryo and the endosperm.</li>
+      <li>Bran Coat (layer): a very thin layer of differentiated tissues. The layer contains fiber, vitamin B, protein and fat.
+        The most nutritious part of rice resides in this layer.</li>
+      <li>Embryo: The innermost part of a rice grain consists mainly of starch called amylase and amylo pectin. The mixture of
+        these two starches determines the cooking texture of rice. </li>
+    </ul>
+    <p>A crop producing on average 300 panicles per m2 and 100 spikelets per panicle, with an average spikelet sterility of
+      15 % at maturity and a 1000-grain weight of 20 g will have an expected yield of 5.1 t/ha.</p>
+  <div>
+    <h4>1.5 Soil</h4>
+
+    <div>
+      <div>
+        <span>Soil type: A rice paddy needs to hold water well. Ideally, soil needs to include about 50% clay content. Also, soil
+          underlain with an impervious hardpan or clay-pan helps to hold water.</span>
+      </div>
+    </div>
+    <div class="item-contents-bottom"></div>
+  </div>
+  <div class="rich-item-contents-bottom"></div>
+
+  <div class="layout-separator-std"></div>
+
+
+  <div class="item-rich-contents">
+    <a name="{36A01DE5-1874-448B-9801-B4088E5C8609}"></a>
+    <div id="{36A01DE5-1874-448B-9801-B4088E5C8609}" class="item-contents item-contents-alternate">
+      <h4>1.6 Irrigation</h4>
+
+      <div>
+        <div>
+          <span>Rice can grow in either a wet (paddy) or a dry (field) setting. (</span>Rice fields are also called paddy fields
+          or rice paddies).</div>
+        <div>&nbsp;</div>
+        <div>
+          <span>About 75% of the global rice production comes from irrigated rice systems because most rice varieties express their
+            full yield potential when water supply is adequate. </span>
+        </div>
+        <div>
+          <span></span>&nbsp;</div>
+        <div>
+          <span>In cooler areas, during late spring, water serves also as a heat-holding medium and creates a much milder environment
+            for rice growing.</span>
+        </div>
+        <div>
+          <span></span>&nbsp;</div>
+        <div>
+          <span>A pond could hold irrigation water to use in the summer, when demand for water is the greatest.</span>
+        </div>
+        <div>
+          <span></span>&nbsp;</div>
+        <div>
+          <span>The bulk of the rice in Asia is grown during the wet season starting in June-July, and dependence on rainfall is
+            the most limiting production constraint for rain-fed culture. Rice areas in South and Southeast Asia may, in
+            general, be classified into irrigated, rain-fed upland, rain-fed shallow water lowland and rain-fed deep water
+            lowland areas.</span>
+        </div>
+        <div>
+          <span></span>&nbsp;</div>
+        <div>
+          <span>The productivity of well-managed, irrigated rice is highest, being in the range of 5-8 t/ha during the wet season
+            and 7-10 t/ha during the dry season if very well managed, but the average is often only in the range of 3-5 t/ha.
+            The productivity of rain-fed upland and deep water lowland rice, however, continues to be low and is static around
+            1.0 t/ha.</span>
+        </div>
+      </div>
+      <div class="item-contents-bottom"></div>
+    </div>
+  </div>
+  <div class="rich-item-contents-bottom"></div>
+
+  <div class="layout-separator-std"></div>
+
+
+  <div class="item-rich-contents">
+    <a name="{C2811600-DAD2-432D-B46A-5116001FD50A}"></a>
+    <div id="{C2811600-DAD2-432D-B46A-5116001FD50A}" class="item-contents">
+      <h4>1.7 Varieties</h4>
+
+      <div>
+        <span>There are more than 40,000 varieties of cultivated rice (
+          <em>Oryza sativa L.</em>), but the exact figure is uncertain. Over 90,000 samples of cultivated and wild rice species
+          are stored at the International Rice Gene Bank and these are used by researchers all over the world.</span>
+      </div>
+      <div>
+        <span></span>&nbsp;</div>
+      <div>
+        <span>There are four main types of rice: Indica, Japonica, aromatic, and glutinous. Rice seeds vary in shape, size, width,
+          length, color and aroma. There are many different varieties of rice: drought-resistant, pest-resistant, flood-resistant,
+          saline-resistant, tall, short, aromatic, sticky, with red, violet, brown, or black; long and slender; or short
+          and round grains.</span>
+      </div>
+      <div>
+        <span></span>&nbsp;</div>
+      <div>Extensive studies of the varieties have demonstrated that they were independently derived from the wild rice species
+        <em>Oryza rufipogon</em>. The domesticated varieties show much less variation (polymorphism) than the wild species.</div>
+      <div>&nbsp;</div>
+      <div>
+        <span>Rice cultivars (
+          <em>Oryza sativa L</em>.) are divisible into the Indica and Japonica types, or subspecies
+          <em>indica</em> and
+          <em>japonica</em>, which differ in various morphophysiological traits. </span>These two main varieties of domesticated
+        rice (
+        <em>Oryza sativa</em>), one variety,
+        <em>O. sativa indica</em> can be found in India and Southeast Asia while the other,
+        <em>O. sativa japonica</em>, is mostly cultivated in Southern China. </div>
+      <div>&nbsp;</div>
+      <div>In general, the rice family can be broken down into three main categories:</div>
+      <ul>
+        <li>
+          <strong>Long Grain</strong>: Approx. 6-8 mm long, about 3-4 times longer than thick. The endosperm is hard&nbsp;and vitreous.
+          The best long grain varieties come from Thailand, Southern US, India, Pakistan, Indonesia and Vietnam.</li>
+        <li>
+          <strong>Medium Grain</strong>: Approx. 5-6 mm long, but thicker than long grain rice. The endosperm is&nbsp;soft and chalky.
+          It releases about 15% starch into water during cooking. Medium grain rice is mainly grown in China, Egypt and Italy.</li>
+        <li>
+          <strong>Short Grain </strong>or
+          <strong>Round Grain</strong>: Approx. 4-5 mm long, only 1.5-2 times longer than thick. The endosperm is soft and chalky.
+          This&nbsp;variety is grown in subtropical areas like California, Egypt, Italy, Japan, Korea, Spain and&nbsp;Portugal.</li>
+      </ul>
+      <div class="item-contents-bottom"></div>
+    </div>
+  </div>
+  <div class="rich-item-contents-bottom"></div>
+
+  <div class="layout-separator-std"></div>
+
+
+  <div class="item-rich-contents">
+    <a name="{D919F183-4710-4E62-A329-B7A4FCFABB59}"></a>
+    <div id="{D919F183-4710-4E62-A329-B7A4FCFABB59}" class="item-contents item-contents-alternate">
+      <h4>1.8 Yields</h4>
+
+      <div>
+        <span>Yield gap is literally defined as the difference between yield potential of rice and yields that are actually obtained
+          by farmers. </span>
+      </div>
+      <div>
+        <span></span>&nbsp;</div>
+      <div>
+        <span>Yield potential of traditional
+          <strong>
+            <em>Indica</em> varieties</strong> is about 5 t/ha, while yield potential of crossbreeding
+          <strong>
+            <em>Japonica varieties </em>
+          </strong>x with high-yielding
+          <strong>
+            <em>Indica</em> varieties</strong>,
+          <strong>
+            <em></em>
+          </strong>is&nbsp; about 10 t/ha Yield potential of high-yielding
+          <em>Japonica </em>varieties is about 15 t/ha while the yield potential of hybrid varieties is about 18 t/ha.</span>
+      </div>
+      <div>
+        <span></span>&nbsp;</div>
+      <div>
+        <span>The yield gap in irrigated rice production is graphically presented in Figure 1.8. It shows the gap of about 4-6
+          t/ha in both Tropical (e.g. Philippines) and sub-tropical climate (e.g. Japan).</span>
+      </div>
+    </div>
+  </div>
+  </div>
+  {% endif %}
+
+
+  {% if crop == "SUGARCANE" %}
+  <center>
+    <img src="{% static 'predict/sugarcane.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+  </center>
+  <div class="container-fluid well">
+    <h2>Sugarcane &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price}}</h2>
+    <p>Sugarcane is a tall perennial grass of the genus Saccharum, native to Southeast Asia and parts of the South Pacific.
+      It can grow in warm temperate or tropical climates. The internodes of the plant stalk are rich in the sugar sucrose,
+      and the plants can grow to a height of two to six meters in height.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p>Every cultivar of commercially-grown sugarcane is a complex hybrid between several species and subspecies, all of which
+      can potentially cross.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h2>PLANTING CONDITIONS</h2>
+    <p></p>
+    <h3>Climate</h3>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>Though sugarcane can be cultivated in temperate zones, productivity is much higher in tropical climates. A long, sunny,
+      and hot (32 °C to 38 °C, 90 °F to 100 °F) growing season with moderate to high levels of rainfall (1100 and 1500 mm
+      total), combined with a dry and cooler (12 ˚C to 14 ˚C, 54 °F to 57 °F) harvest season is ideal.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h3>Soil</h3>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>Sugarcane can grow in various types of soils - sandy, loamy, and clay soils, as well as both acidic and alkaline soils
+      (within the pH range of 5 to 8.5). A well-drained loam with a pH of roughly 6.5 is absolutely ideal, but mechanical
+      factors like soil compaction are much more consequential to crop success than soil composition and pH.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h2>GROWTH AND HARVEST</h2>
+    <p></p>
+    <h3>Planting&nbsp;</h3>
+    <p></p>
+    <p>Sugarcane is vegetatively or clonally propagated, in order to ensure consistent cultivar characteristics. Planting is
+      usually the most expensive procedure in the growing season.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>Stalk sections, called “billets,” “setts,” or “seed pieces”—containing one or more buds—are usually planted in late summer,
+      rooting and developing into a stand over winter.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>During this time, the rooting plants are very vulnerable to rot and predation, and are thus often sprayed with insecticide
+      and fungicide before being placed in the seedbed.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h3>Growing&nbsp;</h3>
+    <p></p>
+    <p>Sugarcane can take between 9-24 months to harvest, depending on the climate. There is one harvest of the primary crop,
+      and then 3-4 harvests of the “ratoon”, or regrowth.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>In areas with less than 1500 millimeters meters of annual rainfall, the crop requires drip irrigation.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h3>Ripening&nbsp;</h3>
+    <p></p>
+    <p>Ripening lasts for about three months, in which time the stalk dries out and accelerate the synthesis and storage of
+      sugar. Simple sugars like fructose are converted into sucrose during ripening.</p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <h3>Harvest&nbsp;</h3>
+    <p></p>
+    <p>A cane harvester is used to cut down the full stalks, and cut them into smaller sections (around 30 cm). The harvester
+      is trailed by a cane haulout, which collects the billets.</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p>&nbsp;</p>
+    <p></p>
+    <p>The amount of sugar accumulated in the dry weight at harvest is highly variable, and depends on the climate conditions
+      during the various phases of the plant’s growth.</p>
+  </div>
+  </div>
+  
+  {% endif %} 
+
+
+  {% if crop == "GARLIC" %}
+
+  <div class="container-fluid">
+    <center>
+      <img src="{% static 'predict/garlic.jpg' %}" class="img-rounded" width="304" height="236" style="padding-bottom:1em ">
+    </center>
+    <div class="container-fluid well">
+
+      <table border="0" cellspacing="0" width="100%" cellpadding="8">
+        <tr>
+          <td width="82%" rowspan="2" valign="top">
+            <div class="content">
+              <h1>
+                <a name="top"></a>Spices &amp; Condiments: Garlic</h1>
+              <br>
+              <p align="justify">
+                <font face="sans serif, verdana, arial" size="2">
+                  <b>Introduction </b>
+                </font>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">Garlic, a native of Southern Europe is one of the important bulb crops grown and used as a spice or condiment
+                  throughout India. Gujarat followed by Orissa are the largest producing states. It possesses a high natritive
+                  value, its preparations are administered as a cure against stomach disease, sore eyes and ear ache. It
+                  is commonly used in the preparation of various dishes. Allicin, the principle amoebic dysentry and is also
+                  having many other medicinal properties.
+                </font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Climate and Soil</font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">It is grown under a wide range of climatic conditions. However, it cannot stand too hot or too cold weather.
+                  It prefers moderate temperature in summer as well as in winter. Short days are very favourable for the
+                  formation of bulbs. It can be grown well at elevations of 1000 to 1300 m above MSL. Garlic requires well
+                  drained loamy soils, rich in humus, with fairly good content of potash. The crop raised on sandy or loose
+                  soil does soils, the bulbs produced are deformed and during harvesting, many bulbs are broken and bruised
+                  and so they do not keep well in storage.</font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Varieties </font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">There is no distinct variety of garlic. Local varieties are either white in colour and have fairly big bulbs
+                  with a better keeping quality and a higher yield or red in colour with pungency. Tamil Nadu Agricultural
+                  University has recently released one improved variety by clonal selection viz., Ooty 1 Garlic. It is a
+                  high yielder (17t/ha) with a shorter duration of 120 to 130 days. The bulbs are big sized weighing 20 to
+                  30g and each bulb has 22 to 25 cloves, which are dull white in colour.</font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Propagation </font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">Garlic is propagated by cloves. All the cloves are planted except the long slender once in the centre of
+                  the bulb. Bulbs with side growth should be discarded. Healthy cloves or bulbils free from disease and injuries
+                  should be used for sowing and about 150 to 200 kg cloves are required to plant one hectare. They are sown
+                  by dibbling or furrow planting. </font>
+              </p>
+              <ul>
+                <b>
+                  <li>
+                    <p align="justify">
+                </b>
+                <font face="sans serif, verdana, arial" size="2">Dibbling: The field is divided into small plots convenient for irrigation Cloves may be dibbled 5 to 7.5cm
+                  deep, keeping their growing ends upwards. They are laced 7.5cm apart from each other in rows of 15cm apart
+                  and then they are covered with loose soil. June-July and October-November are the normal planting seasons
+                  for garlic.</font>
+                </p>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <p align="justify">
+                    <font face="sans serif, verdana, arial" size="2">Furrow planting: The furrows are made 15 cm with hand how or a cotton drill. In these furrows, cloves
+                      are dropped by hand 7.5 to 10 cm apart. They are covered lightly with loose soil and a light irrigation
+                      is given. </font>
+                  </p>
+                </li>
+              </ul>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Manures and fertilisers
+                  </font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">About 25 tonnes of farm yard manure is applied as a basal dose along with 60kg Nitrogen and 50 kg in each
+                  of Phosphorus and Potash. Forty five days after planting 60kg Nitrogen is applied again as top dressing.
+                </font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Irrigation</b>
+              </font>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">First irrigation is given after sowing and then field is irrigated every 10 to 15 days depending upon the
+                  soil moisture availability. There should not be any scarcity of moisture in the growing season, otherwise,
+                  the development of the bulbs will be affected. The last irrigation should be given 2 to 3 before harvesting
+                  for making it easy without damaging the bulbs. In South India hills, they are mostly grown as a rainfed
+                  crop.
+                </font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Intercultural operations
+              </b>
+              </font>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">First interculture is given with hand hoe one month after sowing. Second weeding is given one month after
+                  the first (about two and half months from sowing) loosens the soil and helps in the setting of bigger and
+                  well filled bulbs. The crop should not be weeding out or hoed at a later stage because this may damage
+                  the stem and impair the keeping quality. </font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Harvesting </font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">Garlic is a crop of 4 ½ to 5 months duration. When the leaves start turning yellowish or brownish and show
+                  signs of drying up, the crop is ready for harvest. The plants are then pulled out or uprooted with a country
+                  plough and are tied into small bundles which are then kept in the field or in the shade or 2-3 days for
+                  curing and drying so that the bulbs become hard and their keeping quality is improved. The bulbs may be
+                  stored by hanging them on bamboo sticks or by keeping them on dry sand on the market, the dried stalks
+                  are removed and bulbs are cleaned. Well cured garlic bulbs can be kept for 1 to 1 ½ months in an ordinary
+                  well ventilated room. If dust smoke is given to it, the bulbs can be stored for 8 to 10 months. They can
+                  also be stored at 32
+                  <sup>0</sup>F with 60% R.H. Average yield level is 6 to 8 t/ha.</font>
+              </p>
+              <b>
+                <p ALIGN="JUSTIFY">
+                  <font face="sans serif, verdana, arial" size="2">Plant protection</font>
+              </b>
+              </p>
+              <p ALIGN="JUSTIFY">
+                <font face="sans serif, verdana, arial" size="2">Thrips cause withering of the leaves. Application of methyl demeton 25EC 1 ml/litre will check the incidence.
+                  Leaf spot is the most important disease. Spraying Dithane M-45 at fortnightly intervals at 2.5g in one
+                  litre of water is recommended.</font>
+              </p>
+            </div>
+          </td>
+    </div>
+  </div>
+
+  {% endif%}
+
+<!-- <div class="container footer"><i class="fa fa-copyright pull-center" aria-hidden="true" style="margin:3px"></i>NONE</div> -->
+{% if crop1 == 1 %}
+<div class="well"><h3>2.GARLIC&nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 2 %}
+<div class="well"><h3>2.ONION &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 3 %}
+<div class="well"><h3>2.ORANGE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 4 %}
+<div class="well"><h3>2.PEAS &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 5 %}
+<div class="well"><h3>2.POTATO &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 6 %}
+<div class="well"><h3>2.RICE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 7 %}
+<div class="well"><h3>2.TOMATO &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+{% if crop1 == 8 %}
+<div class="well"><h3>2.SUGARCANE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price1}}</h3></div>
+{% endif %}
+
+{% if crop2 == 1 %}
+<div class="well"><h3>3.GARLIC &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 2 %}
+<div class="well"><h3>3.ONION &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 3 %}
+<div class="well"><h3>3.ORANGE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 4 %}
+<div class="well"><h3>3.PEAS &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 5 %}
+<div class="well"><h3>3.POTATO &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 6 %}
+<div class="well"><h3>3.RICE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+{% if crop2 == 7 %}
+<div class="well"><h3>3.TOMATO &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div> 
+{% endif %}
+{% if crop2 == 8 %}
+<div class="well"><h3>3.SUGARCANE &nbsp&nbsp&nbsp&nbsp Revenue/Hectare: Rs{{price2}}</h3></div>
+{% endif %}
+
+<form method="POST" action="{% url 'predict' %}">
+  {% csrf_token %}
+<button type="submit" href="{% url 'predict' %}" class="btn btn-primary nav_btn" ><i class="fa fa-play icn" aria-hidden="true"></i>Predict Bio-Fertilizer</button>
+</div>
+
+</body>
+</html>

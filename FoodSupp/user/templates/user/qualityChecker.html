@@ -1,0 +1,93 @@
+
+
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+  <br><br><br><br>  <br><br><br><br>
+    <!--{% for x in data %}-->
+    	<!--<div class="row" style="margin-top:30px">-->
+			<!--<form method="POST" action={% url 'qualityChecker' %}>-->
+    		<!--<div class="col-md-5">-->
+					<!--Name: {{x.name}}-->
+			    	<!--<br>-->
+			    	<!--Email: {{x.email}}-->
+			    	<!---->
+			    	<!--<br>-->
+			    	<!--Crop Name: {{x.cropName}}-->
+			    	<!--<br>-->
+			    	<!--Farmer Key: {{x.farmerKey}}-->
+			    	<!--<br>-->
+			    	<!--Farmer Lot Key: {{x.farmerLotKey}}-->
+			    	<!--<br>-->
+			    	<!--Quantity Requested: {{x.quantityRequested}}-->
+			<!--</div>-->
+			<!--<div class="col-md-7">-->
+
+					<!--{% csrf_token %}-->
+					<!--<div>-->
+						<!--Remarks:-->
+						<!--<textarea name="remark"></textarea><br>-->
+					<!--</div>-->
+					<!--Farmer Id:-->
+					<!--<input name="farmerKey" type="text" value="{{x.farmerKey}}" class="field left" readonly><br>-->
+					<!--Sample Size:-->
+					<!--<input name="sampleSize" type="text"><br>-->
+					<!--Defective:-->
+					<!--<input name="defective" type="text"><br>-->
+
+
+					<!--<button type="submit" name="accept" value="accept" class="btn btn-primary" >Accept</button>-->
+				<!--<button type="submit" name="decline" value="decline" class="btn btn-warning" >Reject</button>-->
+				<!--<form>-->
+			<!--</div>-->
+		<!--</div>-->
+
+    <!--{% endfor %}-->
+
+<div>
+<div >
+    <h3>Farmer requests for Quality Check.</h3>
+</div>
+        {% csrf_token %}
+        {% for x in data %}
+            <div class="card-body">
+                <form action="{% url 'qualityChecker' %}" method="POST" id="form1">
+                    {% csrf_token %}
+                    <div class="row" >
+                        <div class="col-md-5" style="background: rgba(255, 255, 255, 0.4)">
+                            <p>{{x.cropName}}</p>
+                            <p>{{x.farmerKey}}</p>
+                            <p>{{x.farmerLotKey}}</p>
+                            <p>{{x.quantityRequested}}</p>
+                            <p>{{x.interestKey}}</p>
+                            <input type="hidden" value = "{{x.farmerLotKey}}" name="lotKey" >
+                            <input type="hidden" value = "{{x.cropName}}" name="cropName">
+                            <input type="hidden" value = "{{x.quantityRequested}}" name="quantity">
+                            <input type="hidden" value = "{{x.interestKey}}" name="interestKey">
+                        </div>
+                        <div class="col-md-5" style="background: rgba(255, 255, 255, 0.4);text-align:center">
+
+                                Remarks:
+                                <textarea name="remark"  style="margin-top: 10px;border-radius: 25px;width:375px"></textarea><br>
+                                Farmer Id:
+                                <input name="farmerKey" type="text" style="margin-top: 10px;border-radius: 25px;width:375px" value="{{x.farmerKey}}" class="field left" readonly><br>
+                                Sample Size:
+                                <input name="sampleSize" style="margin-top: 10px;border-radius: 25px;width:375px" type="text"><br>
+                                Defective:
+                                <input name="defective" style="margin-top: 10px;border-radius: 25px;width:375px" type="text"><br>
+                                <button type="submit" name="pushButton" value="accept" class="btn btn-warning" style="margin-bottom:10px;margin-top: 10px;border-radius: 25px;width:200px" >Push Report</button>
+
+                        </div>
+
+                        <!--<a href="{% url 'processor' %}" class="btn btn-primary stretched-link">Accept</a>-->
+                      <!--<button type="submit" name="rejectButton" value="reject" class="btn btn-warning" >Deny</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,13 @@
+<style>
+
+body{
+	background-color:black; 
+}
+.row-centerd : {
+	text-align: center;
+}
+
+.col-centered : {
+	display: inline-block;
+}
+</style>

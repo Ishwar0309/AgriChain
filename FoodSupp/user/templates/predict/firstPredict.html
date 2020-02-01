@@ -1,0 +1,261 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+
+
+
+
+<script type="text/javascript">
+var centerlat , centerlong;
+var staticMapUrl = "https://maps.googleapis.com/maps/api/staticmap";
+  function myMap() {
+  var cordinateslt = [];
+  var cordinateslg = [];
+  var loclat , loclng ;
+  var cordinates = [];
+  var num = cordinates.length;
+  var map,location,mapCanvas,mapOptions;
+
+ if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              loclat =  position.coords.latitude;
+              loclng = position.coords.longitude;
+                location = new google.maps.LatLng(loclat , loclng);
+          mapCanvas = document.getElementById("map");
+            mapOptions = {center: location, zoom: 16};
+                map = new google.maps.Map(mapCanvas,mapOptions);
+                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+
+
+                function setpoly(){
+
+           for(var i=0;i<num;i++)
+            {
+            cordinates.push(new google.maps.LatLng(cordinateslt[i] , cordinateslg[i]));
+          }
+            cordinates.pop();
+            map.setCenter(cordinates[num-1]);
+
+            flightPath = new google.maps.Polygon({
+             path:cordinates,
+            strokeColor: "#0000FF",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#0000FF",
+            fillOpacity: 0.4
+           });
+            flightPath.setMap(map);
+            google.maps.event.clearListeners(map, "rightclick");
+            google.maps.event.clearListeners(map, "click");
+          }
+
+      google.maps.event.addListener(map, "rightclick", function(event) {
+          var lat = event.latLng.lat();
+          var lng = event.latLng.lng();
+          cordinateslt.push(lat);
+          cordinateslg.push(lng);
+           num = num + 1;
+          setpoly();
+          centerlong = lng;
+          centerlat = lat;
+          staticMapUrl += "?center=" + centerlat + "," + centerlong;
+          staticMapUrl += "&size=220x300";
+          staticMapUrl += "&zoom=" + 18;
+          staticMapUrl += "&maptype=" + google.maps.MapTypeId.SATELLITE;
+
+
+      });
+
+      google.maps.event.addListener(map, "click", function(event) {
+          var lat = event.latLng.lat();
+          var lng = event.latLng.lng();
+          cordinateslt.push(lat);
+          cordinateslg.push(lng);
+          num = num + 1;
+      });
+
+
+          });
+        }
+  }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width , initial-scale=1.0" >
+  <meta name="description" content="Fertilizer Prediction">
+  <meta name="author" content="Mayank Singh">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="{% static 'predict/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script type="text/javascript" src="{% static 'predict/login2_js.js' %}"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+	<link href="{% static 'predict/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+ 	<link type="text/css" href="{% static 'predict/styles/login2_css.css' %}" rel="stylesheet">
+ 	<link type="text/css" href="{% static 'predict/styles/index_css.css' %}" rel="stylesheet">
+ 	<link type="text/css" href="{% static 'predict/styles/indexstyle.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Precision Farming</a>
+    </div>
+     <ul class="nav navbar-nav">
+      <li id="nav1"><a href="{% url 'home' %}">Home</a></li>
+         <li id="nav1"><a href="{% url 'farmer' %}">Farmer Home</a></li>
+      <!-- <li id="nav2"><a href="/users/logs">Logs</a></li> -->
+      <!-- <li id="nav3"><a href="/users/graph">Graphs</a></li>       -->
+    </ul>
+
+ </nav>
+ </div>
+<div id="map" style="width:100%;height:500px;margin-top:-40px"></div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAib9KsRLJMKSlaX7bmZghcA1xRpne8yek&callback=myMap"></script>
+<div class="wrapper container-fluid">
+  <div class="row well" style="min-height: 100px">
+    <div class="row">
+      <div class ="col-sm-12 col-centered" style="padding-bottom: 1em">
+        <center><div class="btn-group center">
+                <button id ="manual_btn" type="button" class="btn btn-primary active small">Manual</button>
+                <button id="auto_btn" type="button" class="btn btn-primary">Automatic</button>
+            </div>
+        </center>
+      </div>
+    </div>
+<form action="{% url 'analyseArea' %}" method="POST">
+    {% csrf_token %}
+    <div class="row" style="padding-bottom: 0.5em , margin-left : -30px">
+      <div class = "col-md-2">
+        <div class="input-group">
+            <span class="input-group-addon">Nitrogen</i></span>
+            <input id="input_value3" type="text" class="form-control" name="Nitrogen" placeholder="Enter Nitrogen Value">
+          </div>
+        </div>
+
+      <div class = "col-md-3">
+        <div class="input-group">
+            <span class="input-group-addon">Phosphorous</i></span>
+            <input id="input_value2" type="text" class="form-control" name="Phosphorous" placeholder="Enter Phosphorous Value">
+          </div>
+        </div>
+
+      <div class ="col-md-2">
+        <div class="input-group">
+            <span class="input-group-addon">Potassium</i></span>
+            <input id="input_value1" type="text" class="form-control" name="Potassium" placeholder="Enter Potassium Value">
+          </div>
+      </div>
+
+        <div class = "col-md-2">
+        <div class="input-group">
+            <span class="input-group-addon">pH</i></span>
+            <input id="input_value4" type="text" class="form-control" name="pH" placeholder="Enter pH Value">
+          </div>
+        </div>
+        <div class = "col-md-3">
+        <div class="input-group">
+            <span class="input-group-addon">Temperature</i></span>
+            <input id="input_value5" type="text" class="form-control" name="Temperature" placeholder="Enter Temperature Value">
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper container-fluid" style="margin-bottom : 10px">
+  <div class="row">
+    <div class="col-md-12 text-right">
+       <!-- <button type="button" class="btn btn-primary nav_btn"><i class="fa fa-stop icn" aria-hidden="true"></i>Stop</button> -->
+
+       <button type="button" class="btn btn-primary nav_btn"><i class="fa fa-pause icn" aria-hidden="true"></i>Contact</button>
+       <button type="submit" href="/users/analyse" class="btn btn-primary nav_btn" ><i class="fa fa-play icn" aria-hidden="true"></i>Analyse</button>
+   </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container footer"><i class="fa fa-copyright pull-center" aria-hidden="true" style="margin:3px"></i>NONE</div> -->
+
+<td>
+            <img id="imgMap" alt="" style="display: none" />
+</td>
+   <input type="button" id="btnExport" value="Export" onclick="Export()" />
+
+</body>
+</html>
+
+<script type="text/javascript">
+  $(function() {
+    $("#manual_btn").click(function(){
+    $('#input_value1').removeAttr("disabled");
+    $('#input_value2').removeAttr("disabled");
+    $('#input_value3').removeAttr("disabled");
+    $('#input_value4').removeAttr("disabled");
+    $('#input_value5').removeAttr("disabled");
+    $('#auto_btn').removeClass("active");
+    $('#manual_btn').addClass("active");
+  });
+
+  $("#auto_btn").click(function(){
+    $('#input_value1').attr("disabled" , "true");
+    $('#input_value2').attr("disabled" , "true");
+    $('#input_value3').attr("disabled" , "true");
+    $('#input_value4').attr("disabled" , "true");
+    $('#input_value5').attr("disabled" , "true");
+    $('#auto_btn').addClass("active");
+    $('#manual_btn').removeClass("active");
+  });
+});
+
+
+</script>
+
+<script type="text/javascript">
+  function Export() {
+        //URL of Google Static Maps.
+        // var staticMapUrl = "https://maps.googleapis.com/maps/api/staticmap";
+
+        // //Set the Google Map Center.
+        // staticMapUrl += "?center=" + centerlat + "," + centerlat;
+
+        // //Set the Google Map Size.
+        // staticMapUrl += "&size=220x350";
+
+        // //Set the Google Map Zoom.
+        // staticMapUrl += "&zoom=" + 16;//mapOptions.zoom;
+
+        // //Set the Google Map Type.
+        // staticMapUrl += "&maptype=" + //mapOptions.mapTypeId;
+
+        // //Loop and add Markers.
+        // for (var i = 0; i < markers.length; i++) {
+        //     staticMapUrl += "&markers=color:red|" + markers[i].lat + "," + markers[i].lng;
+        // }
+
+        //Display the Image of Google Map.
+        console.log(staticMapUrl);
+        var imgMap = document.getElementById("imgMap");
+        imgMap.src = staticMapUrl;
+        imgMap.style.display = "block";
+    }
+</script>

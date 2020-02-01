@@ -1,0 +1,120 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+
+ body  {
+             background-image: url("https://secureservercdn.net/198.71.233.135/eff.57c.myftpupload.com/wp-content/uploads/2017/08/farm2.png?time=1570110846");
+             background-repeat: no-repeat;
+             background-attachment: fixed;
+       }
+</style>
+<body>
+
+ <div class="container" style="display:block;height:700px;width:90%;margin-top:100px;background: rgba(255, 255, 255, 0.4);">
+
+   <br><br><br><br>
+
+
+
+
+     <div class="row" style="display: block;text-align: center;">
+
+
+       <h3><span ><a id="1" class="show" style="border-left: solid;border-right: solid;cursor: pointer;"> Farmer need Brodcasts.</a></span>
+
+       <span><a id="2" class="show" style="border-right: solid;cursor: pointer;">Deals rejected by farmer</a></span>
+       
+
+       </h3>
+
+
+     </div>
+     <div class="content-wrapper">
+
+         <div id="item-1" style=" display:block;text-align: center;margin-top: 50px;">
+             <div class="row"  style="display:block;text-align: center">
+               <h4>Farmer need Brodcasts.</h4>
+             </div>
+             <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+
+               {% for x in produceList %}
+               	    <div class="col-md-4" style="margin-top: 10px">
+	                 <div class="card " >
+	                 	<form action="{% url 'investor' %}" method="POST" id="form1">
+                			{% csrf_token %}
+
+		                   <div class="card-block" >
+		                     <h5><p class="card-text"><u>Farmer Id</u> : {{x.farmerId}}</p>
+		                     <br>
+		                     <p class="card-text"><u>Farmer Name</u> : {{x.farmerName}}</p><br>
+		                     <p class="card-text"><u>Yeild Id</u> : {{x.yeildId}}</p><br>
+		                     <p class="card-text"><u>Crop Name</u> : {{x.cropName}}</p><br>
+		                     <p class="card-text"><u>Expected Date</u> : {{x.expDate}}</p><br>
+		                     <p class="card-text"><u>Location</u> : {{x.location}}</p><br>
+		                     <p class="card-text"><u>Quantity</u> : {{x.quantity}}</p><br>
+		                     <p class="card-text"><u>Expected Price</u> : {{x.price}}</p>
+		                     <input type="hidden" name="farmerId" value={{x.farmerId}}>
+		                     <input type="hidden" name="yeildId" value={{x.yeildId}}>
+		                    
+		                     <br>
+		                     <u>Amount</u> : <input type="text" name="amount">
+		                     <br>
+		                     <br>
+		                     <u>Holding</u> % : <input type="text" name="holdingPer">
+		                     <button type="submit" name="investAmount" value="reportAddButton" class="btn btn-warning" >Invest</button>
+		                     <br>
+		                   </div>
+		                </form>
+	                 </div>
+	               </div>
+	           
+
+
+           {% endfor %}
+             </div>
+
+         </div>
+         <div class="container" id="item-2" style="text-align: center;margin-top: 50px" >
+         <div class="row"  style="display:block;text-align: center">
+           <h4>Deals rejected by farmer</h4>
+         </div>
+         <div class="row example-1 scrollbar-deep-purple scrollbar-light-blue "   >
+
+               {% for x in rejected %}
+               	    <div class="col-md-4" style="margin-top: 10px">
+	                 <div class="card " >
+	                 	
+
+		                   <div class="card-block" >
+		                     <h5><p class="card-text"><u>Farmer Id</u> : {{x.farmerId}}</p>
+		                     <br>
+		                     <p class="card-text"><u>Farmer Name</u> : {{x.farmerName}}</p><br>
+		                     <p class="card-text"><u>Yeild Id</u> : {{x.yeildId}}</p><br>
+		                     <p class="card-text"><u>Crop Name</u> : {{x.cropName}}</p><br>
+		                     <p class="card-text"><u>Expected Date</u> : {{x.expDate}}</p><br>
+		                     <p class="card-text"><u>Location</u> : {{x.location}}</p><br>
+		                     <p class="card-text"><u>Quantity</u> : {{x.quantity}}</p><br>
+		                     <p class="card-text"><u>Expected Price</u> : {{x.price}}</p>
+		                      <h5> ---------------</h5>
+                          <p class="card-text">Amount Invested : {{x.amount}}</p>
+                          <p class="card-text">Holding Percent : {{x.holdingPercent}}</p>
+		                     
+		                    
+		                    
+		                   </div>
+		                
+	                 </div>
+	               </div>
+	           
+
+
+           {% endfor %}
+             </div>
+
+   </div>
+</div>
+
+{% endblock content %}

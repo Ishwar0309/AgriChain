@@ -1,0 +1,54 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+<style type="text/css">
+
+  body  {
+              background-image: url("http://www.downonthefarmtoys.com/wp-content/uploads/2014/05/farm-wallpaper.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+        }
+</style>
+<body>
+<br>
+<br>
+<br>
+<br>
+
+    {% if msg %}
+      {% for message in msg %}
+          <div class="alert alert-{{message.tags}}">
+              {{message}}
+          </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container" style="text-align: center; margin-top: 25px;">
+        <h3 style="background: rgba(255, 255, 255, 0.4);"> Login Here</h3>
+          <form action="/postsignIn/" method="post" style="background: rgba(255, 255, 255, 0.4); height:250px; margin-top: 40px;">
+            <div style="margin-top:40px">
+              {% csrf_token %}
+              <b>Email:</b>
+              <input type="email" name="email" style="margin-top:40px ;border-radius:5px"><br><br>
+              <b>Password:</b>
+              <input type="password" style="border-radius:5px" name="pass" ><br>
+              <b>Login As:</b>
+
+              <select name="drop"  style="margin-top:40px;border-radius:5px">
+                <option value="Farmer" >Farmer</option>
+                <option value="Processor" >Processor</option>
+                <option value="Logistics" >Logistics</option>
+                <option value="Quality Checker" >Quality Checker</option>
+                <option value="Retailer" >Retailer</option>
+                <option value="Customer" >Customer</option>
+                <option value="Investor" >Investor</option>
+              </select>
+              
+              <button class="btn btn-primary" type="submit" value="Sign In">Sign In</button>
+            </div>
+          </form>
+          <b>Don't have an account yet? Click here</b>
+          <a href="{% url 'user-signup'%}" style="color:black"><h5>SignUp</h5></a>
+    </div>
+</body>
+{% endblock content %}
+
